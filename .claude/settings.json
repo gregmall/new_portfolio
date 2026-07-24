@@ -11,7 +11,8 @@
       "Bash(npx --no-install playwright --version)",
       "Bash(curl -s http://localhost:3000)",
       "Bash(jobs -l)",
-      "Bash(kill 17353)"
+      "Bash(kill 17353)",
+      "Bash(xxd /Users/gregmall/codestuff/new_portfolio/app/favicon.ico)"
     ]
   }
 }
