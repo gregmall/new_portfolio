@@ -94,7 +94,9 @@ export default function Home() {
             {projects.map((project) => (
               <a
                 key={project.name}
-                href={project.href} target="blank_"
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="flex flex-col gap-3 rounded border border-border p-5 transition-colors hover:border-accent"
               >
                 <h3 className="font-semibold text-foreground">{project.name}</h3>
@@ -149,7 +151,9 @@ export default function Home() {
             {socials.map((social) => (
               <li key={social.label}>
                 <a
-                  href={social.href} target="blank_"
+                  href={social.href}
+                  target={social.href.startsWith("mailto:") ? undefined : "_blank"}
+                  rel="noopener noreferrer"
                   className="text-foreground underline decoration-border underline-offset-4 transition-colors hover:text-accent hover:decoration-accent"
                 >
                   {social.label}
