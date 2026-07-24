@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx tsc *)",
+      "Bash(echo \"PID: $!\")",
+      "Bash(find / -iname \"chromium-cli*\" -maxdepth 6)",
+      "Bash(find / -iname \"*chromium-cli*\")",
+      "Bash(command -v chromium-cli)",
+      "Read(//opt/**)",
+      "Bash(python3 -c \"import playwright\")",
+      "Bash(npx --no-install playwright --version)",
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(jobs -l)",
+      "Bash(kill 17353)"
+    ]
+  }
+}
