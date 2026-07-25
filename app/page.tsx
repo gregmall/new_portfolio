@@ -1,7 +1,3 @@
-"use client";
-
-import { useEffect, useState } from "react";
-
 const projects = [
   {
     name: "Wired To Burn",
@@ -46,265 +42,248 @@ const skills = [
 ];
 
 const socials = [
-  { label: "GitHub", href: "https://github.com/gregmall", icon: "🐙" },
+  {
+    label: "GitHub",
+    href: "https://github.com/gregmall",
+    icon: (
+      <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1.16-.02-2.11-3.2.7-3.88-1.36-3.88-1.36-.52-1.34-1.28-1.69-1.28-1.69-1.04-.72.08-.7.08-.7 1.15.08 1.76 1.19 1.76 1.19 1.03 1.75 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.56-.29-5.25-1.28-5.25-5.71 0-1.26.45-2.29 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.09 0 4.44-2.7 5.42-5.27 5.7.42.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.2.66.79.55A10.52 10.52 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5Z" />
+    ),
+  },
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/greg-mall-he-him-3032771b1/",
-    icon: "💼",
+    icon: (
+      <path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5ZM.5 8.75h9v14.75h-9V8.75Zm14.75 0h.16v2.03h.05a3.35 3.35 0 0 1 3.02-1.66c3.23 0 3.82 2.13 3.82 4.9v8.48h-4v-7.52c0-1.79-.03-4.1-2.5-4.1-2.5 0-2.88 1.95-2.88 3.97v7.65h-4V8.75h4.33Z" />
+    ),
   },
-  { label: "Email", href: "mailto:gregmall157@gmail.com", icon: "✉️" },
+  {
+    label: "Email",
+    href: "mailto:gregmall157@gmail.com",
+    icon: (
+      <path d="M2 4.5h20v15H2v-15Zm1.7 1.7 8.3 6.5 8.3-6.5M3.7 18.2 9.8 12M20.3 18.2 14.2 12" />
+    ),
+  },
 ];
 
 const navLinks = [
-  { label: "About", href: "#about", icon: "🏠" },
-  { label: "Projects", href: "#projects", icon: "📁" },
-  { label: "Skills", href: "#skills", icon: "🛠️" },
-  { label: "Contact", href: "#contact", icon: "✉️" },
+  { label: "About", href: "#about" },
+  { label: "Projects", href: "#projects" },
+  { label: "Skills", href: "#skills" },
+  { label: "Contact", href: "#contact" },
 ];
 
-function TitleBarButton({ children }: { children: React.ReactNode }) {
+function Panel({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
   return (
-    <button
-      type="button"
-      className="win-raised win-btn flex h-[18px] w-[18px] items-center justify-center text-[10px] font-bold leading-none text-black"
+    <div
+      className={`relative rounded-xl border border-border bg-card backdrop-blur-xl ${className}`}
     >
+      <span className="absolute -top-px -left-px h-3 w-3 border-l-2 border-t-2 border-accent-2" />
+      <span className="absolute -top-px -right-px h-3 w-3 border-r-2 border-t-2 border-accent-2" />
+      <span className="absolute -bottom-px -left-px h-3 w-3 border-b-2 border-l-2 border-accent-2" />
+      <span className="absolute -bottom-px -right-px h-3 w-3 border-b-2 border-r-2 border-accent-2" />
       {children}
-    </button>
+    </div>
   );
 }
 
-function StartFlag() {
+function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <span className="grid h-3 w-3 grid-cols-2 grid-rows-2 gap-[1px]">
-      <span className="bg-red-600" />
-      <span className="bg-green-600" />
-      <span className="bg-blue-600" />
-      <span className="bg-yellow-400" />
-    </span>
+    <h2 className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] text-accent-2">
+      <span className="text-accent">&#9670;</span>
+      {children}
+      <span className="h-px flex-1 bg-linear-to-r from-accent-2/50 to-transparent" />
+    </h2>
   );
-}
-
-function Clock() {
-  const [time, setTime] = useState<string | null>(null);
-
-  useEffect(() => {
-    const update = () =>
-      setTime(
-        new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
-      );
-    update();
-    const id = setInterval(update, 30000);
-    return () => clearInterval(id);
-  }, []);
-
-  return <span>{time ?? "--:--"}</span>;
 }
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <div className="flex flex-1 items-start justify-center p-2 pb-14 sm:items-center sm:p-6 sm:pb-16">
-        <div className="win-raised w-full max-w-4xl">
-          <div className="flex items-center justify-between gap-2 bg-linear-to-r from-titlebar-from to-titlebar-to px-1.5 py-1">
-            <div className="flex items-center gap-1.5 text-titlebar-text">
-              <span>🖥️</span>
-              <span className="text-xs font-bold sm:text-sm">
-                Greg Mall - Portfolio.exe
-              </span>
-            </div>
-            <div className="flex gap-1">
-              <TitleBarButton>_</TitleBarButton>
-              <TitleBarButton>▢</TitleBarButton>
-              <TitleBarButton>✕</TitleBarButton>
-            </div>
-          </div>
-
-          <div className="flex gap-3 border-b border-face-dark bg-face px-2 py-1 text-xs">
-            {["File", "Edit", "View", "Favorites", "Help"].map((m) => (
-              <span
-                key={m}
-                className="cursor-default px-1 hover:bg-titlebar-from hover:text-titlebar-text"
-              >
-                {m}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex flex-wrap gap-1 border-b border-face-dark bg-face p-1">
+    <div className="flex flex-1 flex-col">
+      <header className="sticky top-0 z-10 border-b border-border bg-background/70 backdrop-blur-xl">
+        <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
+          <a
+            href="#"
+            className="flex items-center gap-2 text-sm font-bold tracking-wide"
+          >
+            <span className="text-accent-2">&#9733;</span>
+            GREG MALL
+          </a>
+          <ul className="flex gap-6 text-xs font-medium uppercase tracking-widest text-muted">
             {navLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="win-raised win-btn flex items-center gap-1.5 px-2 py-1 text-xs"
-              >
-                <span>{link.icon}</span>
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          <div className="win-sunken m-2 flex flex-col gap-10 overflow-hidden bg-white p-4 text-black sm:p-6">
-            <section id="about" className="flex flex-col gap-4">
-              <div className="flex items-center gap-4">
-                <div className="win-raised flex h-16 w-16 shrink-0 items-center justify-center text-3xl">
-                  🧑‍💻
-                </div>
-                <div>
-                  <h1 className="text-2xl font-bold">Greg Mall</h1>
-                  <p className="text-sm font-bold text-[#000080]">
-                    Software Engineer
-                  </p>
-                </div>
-              </div>
-              <div className="win-sunken inline-flex w-fit items-center gap-2 px-2 py-1 text-xs">
-                <span className="h-2 w-2 rounded-full bg-green-600" />
-                Open to new opportunities
-              </div>
-              <p className="max-w-xl text-sm leading-6">
-                I build things for the web. A life long musician and artist. I
-                love to make things.
-              </p>
-              <div className="flex gap-3 pt-1 text-xs font-bold">
+              <li key={link.href}>
                 <a
-                  href="#projects"
-                  className="win-raised win-btn px-4 py-1.5"
+                  href={link.href}
+                  className="transition-colors hover:text-accent-2"
                 >
-                  View Projects
+                  {link.label}
                 </a>
-                <a href="#contact" className="win-raised win-btn px-4 py-1.5">
-                  Get in touch
-                </a>
-              </div>
-            </section>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </header>
 
-            <section id="projects" className="flex flex-col gap-3">
-              <h2 className="flex items-center gap-2 text-sm font-bold">
-                📁 Projects
-              </h2>
-              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-                {projects.map((project) => (
-                  <a
-                    key={project.name}
-                    href={project.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="win-raised flex h-full flex-col">
-                      <div className="flex items-center justify-between gap-1 bg-linear-to-r from-titlebar-from to-titlebar-to px-1.5 py-1 text-titlebar-text">
-                        <span className="flex min-w-0 items-center gap-1 truncate text-xs font-bold">
-                          <span>📄</span>
-                          <span className="truncate">{project.name}</span>
-                        </span>
-                        <span className="win-raised flex h-[14px] w-[14px] shrink-0 items-center justify-center text-[9px] font-bold leading-none text-black">
-                          ✕
-                        </span>
-                      </div>
-                      <div className="win-sunken m-1.5 flex flex-1 flex-col gap-2 bg-white p-2.5 text-xs">
-                        <p className="leading-5">{project.description}</p>
-                        <ul className="mt-auto flex flex-wrap gap-1 pt-2">
-                          {project.tech.map((tech) => (
-                            <li
-                              key={tech}
-                              className="win-raised px-1.5 py-0.5 text-[10px]"
-                            >
-                              {tech}
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-                    </div>
-                  </a>
-                ))}
-              </div>
-            </section>
+      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-28 px-6 py-24">
+        <section id="about" className="relative flex flex-col items-start gap-6">
+          <div
+            aria-hidden
+            className="float-slow pointer-events-none absolute -right-16 -top-20 hidden h-56 w-56 rounded-full opacity-70 sm:block sm:h-72 sm:w-72"
+            style={{
+              background:
+                "radial-gradient(circle at 35% 30%, #f0abfc, #8b5cf6 45%, #312e81 75%, transparent 78%)",
+            }}
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute -right-24 -top-8 hidden h-28 w-72 rotate-[-18deg] rounded-full border border-accent-2/40 opacity-60 sm:-right-32 sm:block sm:h-32 sm:w-96"
+          />
 
-            <section id="skills" className="flex flex-col gap-3">
-              <h2 className="flex items-center gap-2 text-sm font-bold">
-                🛠️ Skills
-              </h2>
-              <div className="win-sunken flex flex-col gap-4 bg-white p-3">
-                {skills.map((group) => (
-                  <div key={group.category} className="flex flex-col gap-1.5">
-                    <h3 className="flex items-center gap-1.5 text-xs font-bold text-[#000080]">
-                      📂 {group.category}
-                    </h3>
-                    <ul className="flex flex-wrap gap-1.5 pl-1">
-                      {group.items.map((item) => (
-                        <li
-                          key={item}
-                          className="win-raised px-2 py-1 text-xs"
-                        >
-                          {item}
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                ))}
-              </div>
-            </section>
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted backdrop-blur-xl">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+            </span>
+            Open to new opportunities
+          </span>
 
-            <section id="contact" className="flex flex-col">
-              <div className="win-raised">
-                <div className="flex items-center gap-1.5 bg-linear-to-r from-titlebar-from to-titlebar-to px-1.5 py-1 text-titlebar-text">
-                  <span>✉️</span>
-                  <span className="text-xs font-bold">Contact Properties</span>
-                </div>
-                <div className="flex flex-col items-center gap-4 p-6 text-center">
-                  <p className="max-w-xl text-sm leading-6">
-                    Open to new opportunities and interesting projects. Reach
-                    out through any of the links below.
+          <h1 className="bg-linear-to-r from-foreground via-accent-2 to-accent bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-7xl">
+            Greg Mall
+          </h1>
+          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent-2">
+            <span className="h-px w-8 bg-accent-2/60" />
+            Software Engineer
+            <span className="h-px w-8 bg-accent-2/60" />
+          </p>
+          <p className="max-w-xl text-lg leading-8 text-muted">
+            I build things for the web. A life long musician and artist. I
+            love to make things.
+          </p>
+          <div className="flex gap-4 pt-2 text-sm font-medium">
+            <a
+              href="#projects"
+              className="rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 text-background shadow-[0_0_30px_-8px_var(--accent)] transition-transform hover:scale-105"
+            >
+              View Projects
+            </a>
+            <a
+              href="#contact"
+              className="rounded-full border border-border px-6 py-3 backdrop-blur-xl transition-colors hover:border-accent-2 hover:text-accent-2"
+            >
+              Get in touch
+            </a>
+          </div>
+        </section>
+
+        <section id="projects" className="flex flex-col gap-10">
+          <SectionHeading>Projects</SectionHeading>
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, i) => (
+              <a
+                key={project.name}
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Panel className="flex h-full flex-col gap-3 p-6 transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_-10px_var(--accent-2)]">
+                  <span className="font-mono text-xs text-accent">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <h3 className="font-semibold text-foreground">
+                    {project.name}
+                  </h3>
+                  <p className="text-sm leading-6 text-muted">
+                    {project.description}
                   </p>
-                  <ul className="flex gap-3">
-                    {socials.map((social) => (
-                      <li key={social.label}>
-                        <a
-                          href={social.href}
-                          target={
-                            social.href.startsWith("mailto:")
-                              ? undefined
-                              : "_blank"
-                          }
-                          rel="noopener noreferrer"
-                          title={social.label}
-                          className="win-raised win-btn flex h-11 w-11 items-center justify-center text-lg"
-                        >
-                          {social.icon}
-                        </a>
+                  <ul className="mt-auto flex flex-wrap gap-2 pt-2 text-xs">
+                    {project.tech.map((tech) => (
+                      <li
+                        key={tech}
+                        className="rounded-full border border-border px-2.5 py-1 text-accent-2"
+                      >
+                        {tech}
                       </li>
                     ))}
                   </ul>
-                </div>
-              </div>
-            </section>
+                </Panel>
+              </a>
+            ))}
           </div>
+        </section>
 
-          <div className="win-sunken mx-2 mb-2 flex items-center justify-between px-2 py-1 text-[11px]">
-            <span>Greg Mall, human. 2026</span>
-            <span>gregmall157@gmail.com</span>
+        <section id="skills" className="flex flex-col gap-10">
+          <SectionHeading>Skills</SectionHeading>
+          <div className="grid gap-6 sm:grid-cols-2">
+            {skills.map((group) => (
+              <Panel key={group.category} className="flex flex-col gap-3 p-6">
+                <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent">
+                  <span className="h-1.5 w-1.5 bg-accent-2" />
+                  {group.category}
+                </h3>
+                <ul className="flex flex-wrap gap-2">
+                  {group.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-full border border-border px-3 py-1 text-xs text-muted"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Panel>
+            ))}
           </div>
-        </div>
-      </div>
+        </section>
 
-      <div className="win-raised fixed inset-x-0 bottom-0 z-10 flex h-10 items-center gap-2 px-1.5">
-        <button
-          type="button"
-          className="win-raised win-btn flex items-center gap-1.5 px-2 py-1.5 text-sm font-bold"
+        <section
+          id="contact"
+          className="flex flex-col items-center gap-6 text-center"
         >
-          <StartFlag />
-          Start
-        </button>
-        <span className="win-sunken h-6 w-px" />
-        <button
-          type="button"
-          className="win-sunken flex items-center gap-1.5 px-2 py-1 text-xs"
-        >
-          🖥️ Greg Mall - Portfolio
-        </button>
-        <span className="ml-auto" />
-        <span className="win-sunken flex items-center px-2 py-1 text-xs">
-          <Clock />
-        </span>
-      </div>
+          <Panel className="flex w-full flex-col items-center gap-6 p-10">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              Let&apos;s work together
+            </h2>
+            <p className="max-w-xl leading-7 text-muted">
+              Open to new opportunities and interesting projects. Reach out
+              through any of the links below.
+            </p>
+            <ul className="flex gap-4">
+              {socials.map((social) => (
+                <li key={social.label}>
+                  <a
+                    href={social.href}
+                    target={
+                      social.href.startsWith("mailto:") ? undefined : "_blank"
+                    }
+                    rel="noopener noreferrer"
+                    aria-label={social.label}
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent-2 hover:text-accent-2"
+                  >
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-5 w-5"
+                    >
+                      {social.icon}
+                    </svg>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </Panel>
+        </section>
+      </main>
+
+      <footer className="border-t border-border px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
+        Greg Mall, human. Transmitting from Earth. 2026
+      </footer>
     </div>
   );
 }
