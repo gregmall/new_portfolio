@@ -72,20 +72,20 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const chipColors = ["bg-accent text-black", "bg-accent-2 text-white", "bg-background"];
+const tilts = ["-rotate-1", "rotate-1", "-rotate-1"];
 
-function Box({
+function Card({
   children,
   className = "",
-  press = false,
+  tilt = "",
 }: {
   children: React.ReactNode;
   className?: string;
-  press?: boolean;
+  tilt?: string;
 }) {
   return (
     <div
-      className={`brutal-shadow border-4 border-foreground ${press ? "brutal-press" : ""} ${className}`}
+      className={`rounded-2xl border border-border bg-card shadow-[0_6px_20px_-4px_rgba(58,46,38,0.15)] transition-transform duration-300 hover:rotate-0 ${tilt} ${className}`}
     >
       {children}
     </div>
@@ -94,18 +94,18 @@ function Box({
 
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-10 border-b-4 border-foreground bg-background">
-        <nav className="mx-auto flex w-full max-w-4xl items-center justify-between px-6 py-4">
-          <a href="#" className="text-lg font-black uppercase tracking-tight">
+    <div className="relative z-10 flex flex-1 flex-col">
+      <header className="border-b border-border">
+        <nav className="mx-auto flex w-full max-w-3xl items-center justify-between px-6 py-5">
+          <a href="#" className="font-serif text-xl italic">
             Greg Mall
           </a>
-          <ul className="flex gap-3 text-sm font-bold uppercase">
+          <ul className="flex gap-6 text-sm text-muted">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="brutal-shadow brutal-press inline-block border-2 border-foreground bg-background px-3 py-1"
+                  className="transition-colors hover:text-accent"
                 >
                   {link.label}
                 </a>
@@ -115,103 +115,109 @@ export default function Home() {
         </nav>
       </header>
 
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-24 px-6 py-20">
+      <main className="mx-auto flex w-full max-w-3xl flex-1 flex-col gap-24 px-6 py-20">
         <section id="about" className="flex flex-col items-start gap-6">
-          <span className="brutal-shadow inline-block border-4 border-foreground bg-accent px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-black">
+          <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-accent px-4 py-1.5 text-xs text-muted">
+            <span className="h-1.5 w-1.5 rounded-full bg-accent-2" />
             Open to new opportunities
           </span>
-          <h1 className="text-6xl font-black uppercase leading-[0.9] tracking-tight sm:text-8xl">
-            Greg
-            <br />
-            Mall
+          <h1 className="font-serif text-6xl italic leading-[1.05] sm:text-7xl">
+            Greg Mall
           </h1>
-          <p className="inline-block bg-accent-2 px-2 py-1 text-xl font-bold text-white">
+          <p className="squiggle-underline text-xl text-muted">
             Software Engineer
           </p>
-          <p className="max-w-xl text-lg leading-7 text-muted">
+          <p className="max-w-xl text-lg leading-8 text-foreground/80">
             I build things for the web. A life long musician and artist. I
             love to make things.
           </p>
-          <div className="flex gap-4 pt-2 text-sm font-bold uppercase">
-            <a href="#projects">
-              <Box press className="bg-foreground px-6 py-3 text-background">
-                View Projects
-              </Box>
+          <div className="flex gap-4 pt-2 text-sm font-medium">
+            <a
+              href="#projects"
+              className="rounded-full bg-accent px-6 py-3 text-[#fbf6ec] shadow-[0_6px_16px_-4px_rgba(193,98,45,0.5)] transition-transform hover:-translate-y-0.5"
+            >
+              View Projects
             </a>
-            <a href="#contact">
-              <Box press className="bg-background px-6 py-3">
-                Get in touch
-              </Box>
+            <a
+              href="#contact"
+              className="rounded-full border border-border px-6 py-3 transition-colors hover:border-accent hover:text-accent"
+            >
+              Get in touch
             </a>
           </div>
         </section>
 
-        <section id="projects" className="flex flex-col gap-8">
-          <h2 className="inline-block w-fit border-4 border-foreground bg-foreground px-4 py-2 text-2xl font-black uppercase tracking-tight text-background">
-            Projects
+        <section id="projects" className="flex flex-col gap-10">
+          <h2 className="font-serif text-3xl italic">
+            <span className="text-accent">&#10022;</span> Projects
           </h2>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project) => (
-              <a key={project.name} href={project.href} target="_blank" rel="noopener noreferrer">
-                <Box press className="flex h-full flex-col gap-3 bg-background p-6">
-                  <h3 className="flex items-start justify-between gap-2 text-lg font-black uppercase">
-                    {project.name}
-                    <span aria-hidden className="text-accent-2">
-                      &#8599;
-                    </span>
-                  </h3>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project, i) => (
+              <a
+                key={project.name}
+                href={project.href}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Card
+                  tilt={tilts[i % tilts.length]}
+                  className="flex h-full flex-col gap-3 p-6"
+                >
+                  <h3 className="font-serif text-lg">{project.name}</h3>
                   <p className="text-sm leading-6 text-muted">
                     {project.description}
                   </p>
-                  <ul className="mt-auto flex flex-wrap gap-2 pt-2 font-mono text-xs">
-                    {project.tech.map((tech, i) => (
+                  <ul className="mt-auto flex flex-wrap gap-2 pt-2 text-xs">
+                    {project.tech.map((tech) => (
                       <li
                         key={tech}
-                        className={`border-2 border-foreground px-2 py-1 ${chipColors[i % chipColors.length]}`}
+                        className="rounded-full border border-border bg-background px-2.5 py-1 text-muted"
                       >
                         {tech}
                       </li>
                     ))}
                   </ul>
-                </Box>
+                </Card>
               </a>
             ))}
           </div>
         </section>
 
-        <section id="skills" className="flex flex-col gap-8">
-          <h2 className="inline-block w-fit border-4 border-foreground bg-foreground px-4 py-2 text-2xl font-black uppercase tracking-tight text-background">
-            Skills
+        <section id="skills" className="flex flex-col gap-10">
+          <h2 className="font-serif text-3xl italic">
+            <span className="text-accent">&#10022;</span> Skills
           </h2>
           <div className="grid gap-6 sm:grid-cols-2">
-            {skills.map((group, i) => (
-              <Box key={group.category} className="flex flex-col gap-3 bg-background p-6">
-                <h3
-                  className={`inline-block w-fit border-2 border-foreground px-2 py-1 text-xs font-bold uppercase tracking-wide ${chipColors[i % chipColors.length]}`}
-                >
+            {skills.map((group) => (
+              <Card key={group.category} className="flex flex-col gap-3 p-6">
+                <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wide text-accent">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent-2" />
                   {group.category}
                 </h3>
                 <ul className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="border-2 border-foreground px-3 py-1 font-mono text-xs"
+                      className="rounded-full border border-border bg-background px-3 py-1 text-xs text-muted"
                     >
                       {item}
                     </li>
                   ))}
                 </ul>
-              </Box>
+              </Card>
             ))}
           </div>
         </section>
 
-        <section id="contact" className="flex flex-col items-center gap-6 text-center">
-          <Box className="flex w-full flex-col items-center gap-6 bg-accent p-10">
-            <h2 className="text-3xl font-black uppercase tracking-tight text-black sm:text-4xl">
+        <section
+          id="contact"
+          className="flex flex-col items-center gap-6 text-center"
+        >
+          <Card className="flex w-full flex-col items-center gap-6 p-10">
+            <h2 className="font-serif text-3xl italic sm:text-4xl">
               Let&apos;s work together
             </h2>
-            <p className="max-w-xl text-lg leading-7 text-black">
+            <p className="max-w-xl text-lg leading-8 text-foreground/80">
               Open to new opportunities and interesting projects. Reach out
               through any of the links below.
             </p>
@@ -225,30 +231,26 @@ export default function Home() {
                     }
                     rel="noopener noreferrer"
                     aria-label={social.label}
+                    className="flex h-12 w-12 items-center justify-center rounded-full border border-border bg-background text-foreground transition-colors hover:border-accent hover:text-accent"
                   >
-                    <Box
-                      press
-                      className="flex h-12 w-12 items-center justify-center bg-background"
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      className="h-5 w-5"
                     >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-5 w-5"
-                      >
-                        {social.icon}
-                      </svg>
-                    </Box>
+                      {social.icon}
+                    </svg>
                   </a>
                 </li>
               ))}
             </ul>
-          </Box>
+          </Card>
         </section>
       </main>
 
-      <footer className="border-t-4 border-foreground px-6 py-8 text-center text-xs font-bold uppercase tracking-wide text-muted">
+      <footer className="border-t border-border px-6 py-8 text-center font-serif text-sm italic text-muted">
         Greg Mall, human. 2026
       </footer>
     </div>
