@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1f150c;
-  --foreground: #e8d9b0;
-  --muted: #a68f63;
-  --accent: #c99a3d;
-  --accent-2: #6b8f71;
-  --card: #2c1f13;
-  --border: #6b4f2c;
+  --background: #0c0c11;
+  --foreground: #e8e6df;
+  --muted: #8b879c;
+  --accent: #7a68ac;
+  --accent-2: #3f8f8a;
+  --card: #16151d;
+  --border: #2c2a38;
 }
 
 @theme inline {
@@ -18,14 +18,14 @@
   --color-accent-2: var(--accent-2);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: var(--font-garamond);
-  --font-serif: var(--font-cinzel);
+  --font-sans: ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-cormorant);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-garamond), ui-serif, serif;
+  font-family: ui-sans-serif, system-ui, sans-serif;
   position: relative;
 }
 
@@ -35,7 +35,7 @@ body::before {
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  opacity: 0.06;
+  opacity: 0.05;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
@@ -45,28 +45,35 @@ body::after {
   inset: 0;
   z-index: -3;
   background: radial-gradient(
-    ellipse 70% 55% at 50% 0%,
-    color-mix(in srgb, var(--accent) 16%, transparent),
-    transparent 65%
+    ellipse 55% 40% at 85% 5%,
+    color-mix(in srgb, var(--foreground) 12%, transparent),
+    transparent 60%
   );
 }
 
-.gear-spin {
-  animation: spin 24s linear infinite;
+.float-slow {
+  animation: float 8s ease-in-out infinite;
 }
 
-.gear-spin-reverse {
-  animation: spin-reverse 18s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
   }
 }
 
-@keyframes spin-reverse {
-  to {
-    transform: rotate(-360deg);
+@keyframes drift {
+  0% {
+    transform: translate(0, 0);
   }
+  100% {
+    transform: translate(-30px, 10px);
+  }
+}
+
+.drift {
+  animation: drift 12s ease-in-out infinite alternate;
 }

@@ -72,55 +72,35 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const gearTeeth = [0, 45, 90, 135, 180, 225, 270, 315];
-
-function Gear({ className = "" }: { className?: string }) {
+function Crow({
+  className = "",
+  sheen = false,
+}: {
+  className?: string;
+  sheen?: boolean;
+}) {
   return (
     <svg
-      viewBox="0 0 120 120"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="4"
+      viewBox="0 0 100 80"
+      fill={sheen ? "url(#crow-sheen)" : "currentColor"}
       className={className}
     >
-      <circle cx="60" cy="60" r="32" />
-      <circle cx="60" cy="60" r="10" />
-      {gearTeeth.map((angle) => (
-        <rect
-          key={angle}
-          x="55"
-          y="4"
-          width="10"
-          height="16"
-          transform={`rotate(${angle} 60 60)`}
-        />
-      ))}
+      <polygon points="26,48 2,38 10,50 2,62 26,58" />
+      <ellipse cx="46" cy="52" rx="22" ry="15" transform="rotate(-8 46 52)" />
+      <circle cx="70" cy="38" r="11" />
+      <polygon points="79,35 94,39 79,44" />
+      <circle cx="73" cy="36" r="1.6" fill="var(--background)" />
+      <rect x="42" y="64" width="2.5" height="12" />
+      <rect x="52" y="64" width="2.5" height="12" />
     </svg>
   );
 }
 
-function Rivets() {
-  const dot =
-    "radial-gradient(circle at 35% 30%, #f3d98a, #c99a3d 55%, #6b4f2c 100%)";
+function FlyingCrow({ className = "" }: { className?: string }) {
   return (
-    <>
-      <span
-        className="absolute left-2 top-2 h-2 w-2 rounded-full"
-        style={{ background: dot }}
-      />
-      <span
-        className="absolute right-2 top-2 h-2 w-2 rounded-full"
-        style={{ background: dot }}
-      />
-      <span
-        className="absolute bottom-2 left-2 h-2 w-2 rounded-full"
-        style={{ background: dot }}
-      />
-      <span
-        className="absolute bottom-2 right-2 h-2 w-2 rounded-full"
-        style={{ background: dot }}
-      />
-    </>
+    <svg viewBox="0 0 40 12" fill="currentColor" className={className}>
+      <path d="M0,10 Q10,0 20,8 Q30,0 40,10 Q30,5 20,11 Q10,5 0,10 Z" />
+    </svg>
   );
 }
 
@@ -133,9 +113,9 @@ function Panel({
 }) {
   return (
     <div
-      className={`relative border-[6px] border-double border-border bg-card ${className}`}
+      className={`relative overflow-hidden rounded-lg border border-border bg-card ${className}`}
     >
-      <Rivets />
+      <span className="absolute inset-x-0 top-0 h-[2px] bg-linear-to-r from-accent via-[#a15a8c] to-accent-2" />
       {children}
     </div>
   );
@@ -143,10 +123,10 @@ function Panel({
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="flex items-center gap-3 font-serif text-sm font-semibold uppercase tracking-[0.3em] text-accent">
-      <Gear className="h-4 w-4" />
+    <h2 className="flex items-center gap-3 font-serif text-lg italic tracking-wide text-foreground">
+      <Crow className="h-4 w-5 text-accent-2" />
       {children}
-      <span className="h-px flex-1 bg-linear-to-r from-accent/50 to-transparent" />
+      <span className="h-px flex-1 bg-linear-to-r from-accent-2/50 to-transparent" />
     </h2>
   );
 }
@@ -154,13 +134,23 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-10 border-b-2 border-border bg-background/90 backdrop-blur-xl">
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id="crow-sheen" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#7a68ac" />
+            <stop offset="50%" stopColor="#a15a8c" />
+            <stop offset="100%" stopColor="#3f8f8a" />
+          </linearGradient>
+        </defs>
+      </svg>
+
+      <header className="sticky top-0 z-10 border-b border-border bg-background/85 backdrop-blur-xl">
         <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
           <a
             href="#"
-            className="flex items-center gap-2 font-serif text-sm font-bold uppercase tracking-widest text-accent"
+            className="flex items-center gap-2 font-serif text-lg italic tracking-wide text-foreground"
           >
-            <Gear className="h-4 w-4" />
+            <Crow className="h-4 w-5 text-accent-2" />
             Greg Mall
           </a>
           <ul className="flex gap-6 text-xs font-medium uppercase tracking-widest text-muted">
@@ -168,7 +158,7 @@ export default function Home() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="transition-colors hover:text-accent"
+                  className="transition-colors hover:text-accent-2"
                 >
                   {link.label}
                 </a>
@@ -183,24 +173,28 @@ export default function Home() {
           id="about"
           className="relative flex flex-col items-start gap-6"
         >
-          <Gear className="gear-spin pointer-events-none absolute -right-6 -top-10 hidden h-40 w-40 text-border opacity-40 sm:block" />
-          <Gear className="gear-spin-reverse pointer-events-none absolute right-24 top-16 hidden h-20 w-20 text-border opacity-40 sm:block" />
+          <Crow
+            sheen
+            className="float-slow pointer-events-none absolute -right-4 -top-6 hidden h-28 w-36 opacity-90 sm:block"
+          />
+          <FlyingCrow className="drift pointer-events-none absolute right-40 top-2 hidden h-3 w-10 text-muted opacity-50 sm:block" />
+          <FlyingCrow className="pointer-events-none absolute right-56 top-16 hidden h-2.5 w-8 text-muted opacity-40 sm:block" />
 
-          <span className="inline-flex items-center gap-2 border-2 border-double border-accent/70 bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted">
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent-2 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent-2" />
             </span>
             Open to new opportunities
           </span>
 
-          <h1 className="font-serif text-5xl font-bold tracking-tight text-foreground drop-shadow-[0_2px_0_rgba(0,0,0,0.5)] sm:text-7xl">
+          <h1 className="bg-linear-to-r from-accent via-[#a15a8c] to-accent-2 bg-clip-text font-serif text-6xl italic tracking-tight text-transparent sm:text-8xl">
             Greg Mall
           </h1>
-          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent">
-            <span className="h-px w-8 bg-accent/60" />
+          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent-2">
+            <span className="h-px w-8 bg-accent-2/60" />
             Software Engineer
-            <span className="h-px w-8 bg-accent/60" />
+            <span className="h-px w-8 bg-accent-2/60" />
           </p>
           <p className="max-w-xl text-lg leading-8 text-muted">
             I build things for the web. A life long musician and artist. I
@@ -209,13 +203,13 @@ export default function Home() {
           <div className="flex gap-4 pt-2 text-sm font-medium">
             <a
               href="#projects"
-              className="border-2 border-double border-accent bg-linear-to-b from-[#e0b654] to-[#8a641f] px-6 py-3 font-serif uppercase tracking-widest text-[#1f150c] shadow-[0_0_20px_-6px_var(--accent)] transition-transform hover:scale-105"
+              className="rounded-full bg-linear-to-r from-accent via-[#a15a8c] to-accent-2 px-6 py-3 text-background shadow-[0_0_30px_-10px_var(--accent)] transition-transform hover:scale-105"
             >
               View Projects
             </a>
             <a
               href="#contact"
-              className="border-2 border-double border-border px-6 py-3 font-serif uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
+              className="rounded-full border border-border px-6 py-3 transition-colors hover:border-accent-2 hover:text-accent-2"
             >
               Get in touch
             </a>
@@ -232,11 +226,11 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Panel className="flex h-full flex-col gap-3 p-6 transition-all hover:-translate-y-1 hover:border-accent">
-                  <span className="font-serif text-xs text-accent">
-                    N&#176;{String(i + 1).padStart(2, "0")}
+                <Panel className="flex h-full flex-col gap-3 p-6 transition-all hover:-translate-y-1 hover:border-accent-2">
+                  <span className="font-serif text-xs italic text-accent-2">
+                    {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-serif font-semibold text-foreground">
+                  <h3 className="font-serif text-lg font-semibold text-foreground">
                     {project.name}
                   </h3>
                   <p className="text-sm leading-6 text-muted">
@@ -246,7 +240,7 @@ export default function Home() {
                     {project.tech.map((tech) => (
                       <li
                         key={tech}
-                        className="border border-border px-2.5 py-1 text-accent"
+                        className="rounded-full border border-border px-2.5 py-1 text-accent-2"
                       >
                         {tech}
                       </li>
@@ -263,15 +257,15 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2">
             {skills.map((group) => (
               <Panel key={group.category} className="flex flex-col gap-3 p-6">
-                <h3 className="flex items-center gap-2 font-serif text-xs font-semibold uppercase tracking-widest text-accent">
-                  <Gear className="h-3.5 w-3.5" />
+                <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent-2">
+                  <Crow className="h-3 w-4" />
                   {group.category}
                 </h3>
                 <ul className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="border border-border px-3 py-1 text-xs text-muted"
+                      className="rounded-full border border-border px-3 py-1 text-xs text-muted"
                     >
                       {item}
                     </li>
@@ -287,8 +281,8 @@ export default function Home() {
           className="flex flex-col items-center gap-6 text-center"
         >
           <Panel className="flex w-full flex-col items-center gap-6 p-10">
-            <h2 className="font-serif text-2xl font-bold uppercase tracking-widest text-foreground sm:text-3xl">
-              Correspondence
+            <h2 className="font-serif text-3xl italic tracking-wide sm:text-4xl">
+              The Murder Gathers
             </h2>
             <p className="max-w-xl leading-7 text-muted">
               Open to new opportunities and interesting projects. Reach out
@@ -304,7 +298,7 @@ export default function Home() {
                     }
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-double border-border text-foreground transition-colors hover:border-accent hover:text-accent"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent-2 hover:text-accent-2"
                   >
                     <svg
                       viewBox="0 0 24 24"
@@ -323,8 +317,8 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t-2 border-border px-6 py-8 text-center font-serif text-xs uppercase tracking-widest text-muted">
-        Greg Mall, human. Est. 2026
+      <footer className="border-t border-border px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
+        Greg Mall, human. As the crow flies. 2026
       </footer>
     </div>
   );
