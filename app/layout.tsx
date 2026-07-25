@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
-import { Space_Grotesk } from "next/font/google";
+import { Cinzel, EB_Garamond } from "next/font/google";
 import "./globals.css";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const cinzel = Cinzel({
+  variable: "--font-cinzel",
+  subsets: ["latin"],
+});
+
+const garamond = EB_Garamond({
+  variable: "--font-garamond",
   subsets: ["latin"],
 });
 
@@ -18,7 +23,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${spaceGrotesk.variable} h-full antialiased`}>
+    <html
+      lang="en"
+      className={`${cinzel.variable} ${garamond.variable} h-full antialiased`}
+    >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
       </body>

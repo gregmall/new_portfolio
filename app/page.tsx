@@ -72,6 +72,58 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+const gearTeeth = [0, 45, 90, 135, 180, 225, 270, 315];
+
+function Gear({ className = "" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 120 120"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="4"
+      className={className}
+    >
+      <circle cx="60" cy="60" r="32" />
+      <circle cx="60" cy="60" r="10" />
+      {gearTeeth.map((angle) => (
+        <rect
+          key={angle}
+          x="55"
+          y="4"
+          width="10"
+          height="16"
+          transform={`rotate(${angle} 60 60)`}
+        />
+      ))}
+    </svg>
+  );
+}
+
+function Rivets() {
+  const dot =
+    "radial-gradient(circle at 35% 30%, #f3d98a, #c99a3d 55%, #6b4f2c 100%)";
+  return (
+    <>
+      <span
+        className="absolute left-2 top-2 h-2 w-2 rounded-full"
+        style={{ background: dot }}
+      />
+      <span
+        className="absolute right-2 top-2 h-2 w-2 rounded-full"
+        style={{ background: dot }}
+      />
+      <span
+        className="absolute bottom-2 left-2 h-2 w-2 rounded-full"
+        style={{ background: dot }}
+      />
+      <span
+        className="absolute bottom-2 right-2 h-2 w-2 rounded-full"
+        style={{ background: dot }}
+      />
+    </>
+  );
+}
+
 function Panel({
   children,
   className = "",
@@ -81,12 +133,9 @@ function Panel({
 }) {
   return (
     <div
-      className={`relative rounded-xl border border-border bg-card backdrop-blur-xl ${className}`}
+      className={`relative border-[6px] border-double border-border bg-card ${className}`}
     >
-      <span className="absolute -top-px -left-px h-3 w-3 border-l-2 border-t-2 border-accent-2" />
-      <span className="absolute -top-px -right-px h-3 w-3 border-r-2 border-t-2 border-accent-2" />
-      <span className="absolute -bottom-px -left-px h-3 w-3 border-b-2 border-l-2 border-accent-2" />
-      <span className="absolute -bottom-px -right-px h-3 w-3 border-b-2 border-r-2 border-accent-2" />
+      <Rivets />
       {children}
     </div>
   );
@@ -94,10 +143,10 @@ function Panel({
 
 function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="flex items-center gap-3 text-sm font-semibold uppercase tracking-[0.3em] text-accent-2">
-      <span className="text-accent">&#9670;</span>
+    <h2 className="flex items-center gap-3 font-serif text-sm font-semibold uppercase tracking-[0.3em] text-accent">
+      <Gear className="h-4 w-4" />
       {children}
-      <span className="h-px flex-1 bg-linear-to-r from-accent-2/50 to-transparent" />
+      <span className="h-px flex-1 bg-linear-to-r from-accent/50 to-transparent" />
     </h2>
   );
 }
@@ -105,21 +154,21 @@ function SectionHeading({ children }: { children: React.ReactNode }) {
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-10 border-b border-border bg-background/70 backdrop-blur-xl">
+      <header className="sticky top-0 z-10 border-b-2 border-border bg-background/90 backdrop-blur-xl">
         <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
           <a
             href="#"
-            className="flex items-center gap-2 text-sm font-bold tracking-wide"
+            className="flex items-center gap-2 font-serif text-sm font-bold uppercase tracking-widest text-accent"
           >
-            <span className="text-accent-2">&#9733;</span>
-            GREG MALL
+            <Gear className="h-4 w-4" />
+            Greg Mall
           </a>
           <ul className="flex gap-6 text-xs font-medium uppercase tracking-widest text-muted">
             {navLinks.map((link) => (
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="transition-colors hover:text-accent-2"
+                  className="transition-colors hover:text-accent"
                 >
                   {link.label}
                 </a>
@@ -130,35 +179,28 @@ export default function Home() {
       </header>
 
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-28 px-6 py-24">
-        <section id="about" className="relative flex flex-col items-start gap-6">
-          <div
-            aria-hidden
-            className="float-slow pointer-events-none absolute -right-16 -top-20 hidden h-56 w-56 rounded-full opacity-70 sm:block sm:h-72 sm:w-72"
-            style={{
-              background:
-                "radial-gradient(circle at 35% 30%, #f0abfc, #8b5cf6 45%, #312e81 75%, transparent 78%)",
-            }}
-          />
-          <div
-            aria-hidden
-            className="pointer-events-none absolute -right-24 -top-8 hidden h-28 w-72 rotate-[-18deg] rounded-full border border-accent-2/40 opacity-60 sm:-right-32 sm:block sm:h-32 sm:w-96"
-          />
+        <section
+          id="about"
+          className="relative flex flex-col items-start gap-6"
+        >
+          <Gear className="gear-spin pointer-events-none absolute -right-6 -top-10 hidden h-40 w-40 text-border opacity-40 sm:block" />
+          <Gear className="gear-spin-reverse pointer-events-none absolute right-24 top-16 hidden h-20 w-20 text-border opacity-40 sm:block" />
 
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted backdrop-blur-xl">
+          <span className="inline-flex items-center gap-2 border-2 border-double border-accent/70 bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
             </span>
             Open to new opportunities
           </span>
 
-          <h1 className="bg-linear-to-r from-foreground via-accent-2 to-accent bg-clip-text text-5xl font-bold tracking-tight text-transparent sm:text-7xl">
+          <h1 className="font-serif text-5xl font-bold tracking-tight text-foreground drop-shadow-[0_2px_0_rgba(0,0,0,0.5)] sm:text-7xl">
             Greg Mall
           </h1>
-          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent-2">
-            <span className="h-px w-8 bg-accent-2/60" />
+          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent">
+            <span className="h-px w-8 bg-accent/60" />
             Software Engineer
-            <span className="h-px w-8 bg-accent-2/60" />
+            <span className="h-px w-8 bg-accent/60" />
           </p>
           <p className="max-w-xl text-lg leading-8 text-muted">
             I build things for the web. A life long musician and artist. I
@@ -167,13 +209,13 @@ export default function Home() {
           <div className="flex gap-4 pt-2 text-sm font-medium">
             <a
               href="#projects"
-              className="rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 text-background shadow-[0_0_30px_-8px_var(--accent)] transition-transform hover:scale-105"
+              className="border-2 border-double border-accent bg-linear-to-b from-[#e0b654] to-[#8a641f] px-6 py-3 font-serif uppercase tracking-widest text-[#1f150c] shadow-[0_0_20px_-6px_var(--accent)] transition-transform hover:scale-105"
             >
               View Projects
             </a>
             <a
               href="#contact"
-              className="rounded-full border border-border px-6 py-3 backdrop-blur-xl transition-colors hover:border-accent-2 hover:text-accent-2"
+              className="border-2 border-double border-border px-6 py-3 font-serif uppercase tracking-widest transition-colors hover:border-accent hover:text-accent"
             >
               Get in touch
             </a>
@@ -190,11 +232,11 @@ export default function Home() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <Panel className="flex h-full flex-col gap-3 p-6 transition-all hover:-translate-y-1 hover:shadow-[0_0_30px_-10px_var(--accent-2)]">
-                  <span className="font-mono text-xs text-accent">
-                    {String(i + 1).padStart(2, "0")}
+                <Panel className="flex h-full flex-col gap-3 p-6 transition-all hover:-translate-y-1 hover:border-accent">
+                  <span className="font-serif text-xs text-accent">
+                    N&#176;{String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-semibold text-foreground">
+                  <h3 className="font-serif font-semibold text-foreground">
                     {project.name}
                   </h3>
                   <p className="text-sm leading-6 text-muted">
@@ -204,7 +246,7 @@ export default function Home() {
                     {project.tech.map((tech) => (
                       <li
                         key={tech}
-                        className="rounded-full border border-border px-2.5 py-1 text-accent-2"
+                        className="border border-border px-2.5 py-1 text-accent"
                       >
                         {tech}
                       </li>
@@ -221,15 +263,15 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2">
             {skills.map((group) => (
               <Panel key={group.category} className="flex flex-col gap-3 p-6">
-                <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent">
-                  <span className="h-1.5 w-1.5 bg-accent-2" />
+                <h3 className="flex items-center gap-2 font-serif text-xs font-semibold uppercase tracking-widest text-accent">
+                  <Gear className="h-3.5 w-3.5" />
                   {group.category}
                 </h3>
                 <ul className="flex flex-wrap gap-2">
                   {group.items.map((item) => (
                     <li
                       key={item}
-                      className="rounded-full border border-border px-3 py-1 text-xs text-muted"
+                      className="border border-border px-3 py-1 text-xs text-muted"
                     >
                       {item}
                     </li>
@@ -245,8 +287,8 @@ export default function Home() {
           className="flex flex-col items-center gap-6 text-center"
         >
           <Panel className="flex w-full flex-col items-center gap-6 p-10">
-            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-              Let&apos;s work together
+            <h2 className="font-serif text-2xl font-bold uppercase tracking-widest text-foreground sm:text-3xl">
+              Correspondence
             </h2>
             <p className="max-w-xl leading-7 text-muted">
               Open to new opportunities and interesting projects. Reach out
@@ -262,7 +304,7 @@ export default function Home() {
                     }
                     rel="noopener noreferrer"
                     aria-label={social.label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent-2 hover:text-accent-2"
+                    className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-double border-border text-foreground transition-colors hover:border-accent hover:text-accent"
                   >
                     <svg
                       viewBox="0 0 24 24"
@@ -281,8 +323,8 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="border-t border-border px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
-        Greg Mall, human. Transmitting from Earth. 2026
+      <footer className="border-t-2 border-border px-6 py-8 text-center font-serif text-xs uppercase tracking-widest text-muted">
+        Greg Mall, human. Est. 2026
       </footer>
     </div>
   );
