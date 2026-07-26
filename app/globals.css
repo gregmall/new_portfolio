@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #04141c;
-  --foreground: #e3f2f0;
-  --muted: #6f93a0;
-  --accent: #2de3c4;
-  --accent-2: #ff8f6b;
-  --card: #0b2530;
-  --border: #1c3f4c;
+  --background: #0a0014;
+  --foreground: #f3f0ff;
+  --muted: #8a84ab;
+  --accent: #00f0ff;
+  --accent-2: #ff2fd0;
+  --card: #150a24;
+  --border: #3a2a5c;
 }
 
 @theme inline {
@@ -19,7 +19,8 @@
   --color-card: var(--card);
   --color-border: var(--border);
   --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-quicksand);
+  --font-display: var(--font-press-start);
+  --font-pixel: var(--font-vt323);
 }
 
 body {
@@ -33,51 +34,80 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.05) 0px,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
   z-index: -2;
   pointer-events: none;
   background: radial-gradient(
-      ellipse 60% 50% at 85% 0%,
-      color-mix(in srgb, var(--accent) 18%, transparent),
+      ellipse 60% 50% at 15% 10%,
+      color-mix(in srgb, var(--accent) 20%, transparent),
       transparent 60%
     ),
     radial-gradient(
-      ellipse 55% 45% at 5% 100%,
-      color-mix(in srgb, var(--accent-2) 10%, transparent),
+      ellipse 55% 45% at 90% 20%,
+      color-mix(in srgb, var(--accent-2) 18%, transparent),
       transparent 60%
-    );
+    ),
+    radial-gradient(ellipse 120% 100% at 50% 50%, transparent 55%, #000 100%);
 }
 
-@keyframes bob {
+.pixel-frame {
+  clip-path: polygon(
+    8px 0,
+    calc(100% - 8px) 0,
+    100% 8px,
+    100% calc(100% - 8px),
+    calc(100% - 8px) 100%,
+    8px 100%,
+    0 calc(100% - 8px),
+    0 8px
+  );
+}
+
+.pixel-shadow {
+  box-shadow: 4px 4px 0 0 var(--accent-2);
+}
+
+.pixel-press {
+  transition:
+    transform 100ms steps(2),
+    box-shadow 100ms steps(2);
+}
+
+.pixel-press:hover {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0 0 var(--accent-2);
+}
+
+.pixel-press:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0 0 0 0 var(--accent-2);
+}
+
+@keyframes blink {
   0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
   100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-14px);
-  }
-}
-
-.bob {
-  animation: bob 6s ease-in-out infinite;
-}
-
-@keyframes rise {
-  0% {
-    transform: translateY(0) translateX(0);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.6;
-  }
-  90% {
-    opacity: 0.4;
-  }
-  100% {
-    transform: translateY(-260px) translateX(10px);
     opacity: 0;
   }
 }
 
-.bubble {
-  animation: rise linear infinite;
+.cursor-blink {
+  animation: blink 1s step-start infinite;
 }

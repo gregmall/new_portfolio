@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link, Element } from 'react-scroll'
-import { Bubbles, SectionHeading, Jellyfish, Panel } from './functions';
+"use client";
 
+import { Link as ScrollLink, Element } from "react-scroll";
+import { Panel, SectionHeading, Invader } from "./functions";
 
 const projects = [
   {
     name: "Wired To Burn",
     description:
-      "This is a website for my band where we can post our latest music, post updates and upcoming shows and connect with fans and other bands.",
+      "This is a webstie for my band where we can post our latest music, post updates and upcoming shows and connect with fans and other bands.",
     tech: ["Next.js", "Tailwind", "Firebase"],
     href: "https://wiredtoburn.com",
   },
@@ -71,53 +71,39 @@ const socials = [
 ];
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", to: "about" },
+  { label: "Projects", to: "projects" },
+  { label: "Skills", to: "skills" },
+  { label: "Contact", to: "contact" },
 ];
-
-const bubbles = [
-  { left: "8%", size: 6, duration: "7s", delay: "0s" },
-  { left: "22%", size: 4, duration: "9s", delay: "1.5s" },
-  { left: "40%", size: 8, duration: "6s", delay: "0.5s" },
-  { left: "58%", size: 5, duration: "8s", delay: "2.5s" },
-  { left: "74%", size: 7, duration: "10s", delay: "1s" },
-  { left: "88%", size: 4, duration: "7.5s", delay: "3s" },
-];
-
-
 
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <svg width="0" height="0" className="absolute">
-        <defs>
-          <linearGradient id="jelly-glow" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#2de3c4" />
-            <stop offset="100%" stopColor="#7bd8ff" />
-          </linearGradient>
-        </defs>
-      </svg>
-
-      <header className="sticky top-0 z-10 border-b border-border bg-background/85 backdrop-blur-xl">
+      <header className="sticky top-0 z-10 border-b-2 border-border bg-background/90 backdrop-blur-xl">
         <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
-          <a
-            href="#"
-            className="flex items-center gap-2 font-display text-lg font-bold tracking-wide text-foreground"
+          <ScrollLink
+            to="about"
+            smooth
+            duration={400}
+            offset={-88}
+            className="flex cursor-pointer items-center gap-2 font-display text-xs tracking-wide text-foreground"
           >
-            <span className="h-2 w-2 rounded-full bg-accent" />
+            <Invader className="h-4 w-5 text-accent" />
             Greg Mall
-          </a>
-          <ul className="flex gap-6 text-xs font-medium uppercase tracking-widest text-muted">
+          </ScrollLink>
+          <ul className="flex gap-6 font-pixel text-base uppercase tracking-widest text-muted">
             {navLinks.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  className="transition-colors hover:text-accent"
+              <li key={link.to}>
+                <ScrollLink
+                  to={link.to}
+                  smooth
+                  duration={400}
+                  offset={-88}
+                  className="cursor-pointer transition-colors hover:text-accent"
                 >
                   {link.label}
-                </a>
+                </ScrollLink>
               </li>
             ))}
           </ul>
@@ -125,155 +111,160 @@ export default function Home() {
       </header>
 
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-28 px-6 py-24">
-      
-        <section
-          id="about"
-          className="relative flex flex-col items-start gap-6"
-        >
-          <Bubbles />
-          <Jellyfish className="bob pointer-events-none absolute -right-4 -top-6 hidden h-56 w-40 sm:block" />
+        <Element name="about">
+          <section className="relative flex flex-col items-start gap-6">
+            <Invader className="pointer-events-none absolute -right-2 -top-10 hidden h-24 w-32 text-border sm:block" />
 
-          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            <span className="pixel-frame inline-flex items-center gap-2 border-2 border-border bg-card px-4 py-1.5 font-pixel text-base uppercase tracking-widest text-muted">
+              <span className="cursor-blink h-3 w-2 bg-accent" />
+              Open to new opportunities
             </span>
-            Open to new opportunities
-          </span>
 
-          <h1 className="font-display text-6xl font-bold tracking-tight text-transparent sm:text-7xl">
-            <span className="bg-linear-to-r from-accent to-[#7bd8ff] bg-clip-text drop-shadow-[0_0_25px_rgba(45,227,196,0.3)]">
-              Greg Mall
-            </span>
-          </h1>
-          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent">
-            <span className="h-px w-8 bg-accent/60" />
-            Software Engineer
-            <span className="h-px w-8 bg-accent/60" />
-          </p>
-          <p className="max-w-xl text-lg leading-8 text-muted">
-            I build things for the web. A life long musician and artist. I
-            love to make things.
-          </p>
-          <div className="flex gap-4 pt-2 text-sm font-medium">
-            <a
-              href="#projects"
-              className="rounded-full bg-linear-to-r from-accent to-[#7bd8ff] px-6 py-3 text-background shadow-[0_0_30px_-8px_var(--accent)] transition-transform hover:scale-105"
-            >
-              View Projects
-            </a>
-            <a
-              href="#contact"
-              className="rounded-full border border-border px-6 py-3 transition-colors hover:border-accent hover:text-accent"
-            >
-              Get in touch
-            </a>
-          </div>
-        </section>
-
-        <section id="projects" className="flex flex-col gap-10">
-          <SectionHeading>Projects</SectionHeading>
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {projects.map((project, i) => (
-              <a
-                key={project.name}
-                href={project.href}
-                target="_blank"
-                rel="noopener noreferrer"
+            <h1 className="font-display text-3xl leading-relaxed text-transparent sm:text-5xl">
+              <span className="bg-linear-to-r from-accent to-accent-2 bg-clip-text drop-shadow-[0_0_20px_rgba(0,240,255,0.35)]">
+                Greg Mall
+              </span>
+            </h1>
+            <p className="flex items-center gap-3 font-pixel text-xl uppercase tracking-[0.3em] text-accent-2">
+              <span className="h-px w-8 bg-accent-2/60" />
+              Software Engineer
+              <span className="h-px w-8 bg-accent-2/60" />
+            </p>
+            <p className="max-w-xl text-lg leading-8 text-muted">
+              I build things for the web. A life long musician and artist. I
+              love to make things.
+            </p>
+            <div className="flex gap-6 pt-4 font-display text-xs">
+              <ScrollLink
+                to="projects"
+                smooth
+                duration={400}
+                offset={-88}
+                className="pixel-frame pixel-shadow pixel-press cursor-pointer border-2 border-accent bg-accent px-6 py-3 text-background"
               >
-                <Panel className="flex h-full flex-col gap-3 p-6 transition-all hover:-translate-y-1 hover:border-accent">
-                  <span className="text-xs uppercase tracking-widest text-accent-2">
-                    Dive {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="font-display text-lg font-semibold text-foreground">
-                    {project.name}
+                View Projects
+              </ScrollLink>
+              <ScrollLink
+                to="contact"
+                smooth
+                duration={400}
+                offset={-88}
+                className="pixel-frame pixel-shadow pixel-press cursor-pointer border-2 border-accent bg-card px-6 py-3 text-foreground"
+              >
+                Get in touch
+              </ScrollLink>
+            </div>
+          </section>
+        </Element>
+
+        <Element name="projects">
+          <section className="flex flex-col gap-10">
+            <SectionHeading>Projects</SectionHeading>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project, i) => (
+                <a
+                  key={project.name}
+                  href={project.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Panel className="pixel-press flex h-full flex-col gap-3 p-6">
+                    <span className="font-pixel text-lg text-accent-2">
+                      Level {String(i + 1).padStart(2, "0")}
+                    </span>
+                    <h3 className="font-display text-sm leading-relaxed text-foreground">
+                      {project.name}
+                    </h3>
+                    <p className="text-sm leading-6 text-muted">
+                      {project.description}
+                    </p>
+                    <ul className="mt-auto flex flex-wrap gap-2 pt-2 font-pixel text-base">
+                      {project.tech.map((tech) => (
+                        <li
+                          key={tech}
+                          className="border border-border px-2 py-0.5 text-accent"
+                        >
+                          {tech}
+                        </li>
+                      ))}
+                    </ul>
+                  </Panel>
+                </a>
+              ))}
+            </div>
+          </section>
+        </Element>
+
+        <Element name="skills">
+          <section className="flex flex-col gap-10">
+            <SectionHeading>Skills</SectionHeading>
+            <div className="grid gap-6 sm:grid-cols-2">
+              {skills.map((group) => (
+                <Panel key={group.category} className="flex flex-col gap-3 p-6">
+                  <h3 className="flex items-center gap-2 font-pixel text-lg uppercase tracking-widest text-accent">
+                    <Invader className="h-3 w-4" />
+                    {group.category}
                   </h3>
-                  <p className="text-sm leading-6 text-muted">
-                    {project.description}
-                  </p>
-                  <ul className="mt-auto flex flex-wrap gap-2 pt-2 text-xs">
-                    {project.tech.map((tech) => (
+                  <ul className="flex flex-wrap gap-2 font-pixel text-base">
+                    {group.items.map((item) => (
                       <li
-                        key={tech}
-                        className="rounded-full border border-border px-2.5 py-1 text-accent"
+                        key={item}
+                        className="border border-border px-2 py-0.5 text-muted"
                       >
-                        {tech}
+                        {item}
                       </li>
                     ))}
                   </ul>
                 </Panel>
-              </a>
-            ))}
-          </div>
-        </section>
-
-        <section id="skills" className="flex flex-col gap-10">
-          <SectionHeading>Skills</SectionHeading>
-          <div className="grid gap-6 sm:grid-cols-2">
-            {skills.map((group) => (
-              <Panel key={group.category} className="flex flex-col gap-3 p-6">
-                <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-accent-2" />
-                  {group.category}
-                </h3>
-                <ul className="flex flex-wrap gap-2">
-                  {group.items.map((item) => (
-                    <li
-                      key={item}
-                      className="rounded-full border border-border px-3 py-1 text-xs text-muted"
-                    >
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </Panel>
-            ))}
-          </div>
-        </section>
-
-        <section
-          id="contact"
-          className="flex flex-col items-center gap-6 text-center"
-        >
-          <Panel className="flex w-full flex-col items-center gap-6 p-10">
-            <h2 className="font-display text-3xl font-bold tracking-wide sm:text-4xl">
-              Message in a Bottle
-            </h2>
-            <p className="max-w-xl leading-7 text-muted">
-              Open to new opportunities and interesting projects. Reach out
-              through any of the links below.
-            </p>
-            <ul className="flex gap-4">
-              {socials.map((social) => (
-                <li key={social.label}>
-                  <a
-                    href={social.href}
-                    target={
-                      social.href.startsWith("mailto:") ? undefined : "_blank"
-                    }
-                    rel="noopener noreferrer"
-                    aria-label={social.label}
-                    className="flex h-11 w-11 items-center justify-center rounded-full border border-border text-foreground transition-colors hover:border-accent hover:text-accent"
-                  >
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                      className="h-5 w-5"
-                    >
-                      {social.icon}
-                    </svg>
-                  </a>
-                </li>
               ))}
-            </ul>
-          </Panel>
-        </section>
+            </div>
+          </section>
+        </Element>
+
+        <Element name="contact">
+          <section className="flex flex-col items-center gap-6 text-center">
+            <Panel className="flex w-full flex-col items-center gap-6 p-10">
+              <h2 className="font-display text-xl tracking-wide sm:text-2xl">
+                Continue?
+              </h2>
+              <p className="max-w-xl leading-7 text-muted">
+                Open to new opportunities and interesting projects. Reach out
+                through any of the links below.
+              </p>
+              <ul className="flex gap-4">
+                {socials.map((social) => (
+                  <li key={social.label}>
+                    <a
+                      href={social.href}
+                      target={
+                        social.href.startsWith("mailto:")
+                          ? undefined
+                          : "_blank"
+                      }
+                      rel="noopener noreferrer"
+                      aria-label={social.label}
+                      className="pixel-frame pixel-press flex h-11 w-11 items-center justify-center border-2 border-border text-foreground transition-colors hover:border-accent hover:text-accent"
+                    >
+                      <svg
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        className="h-5 w-5"
+                      >
+                        {social.icon}
+                      </svg>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Panel>
+          </section>
+        </Element>
       </main>
 
-      <footer className="border-t border-border px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
-        Greg Mall, human. Adrift since 2026.
+      <footer className="border-t-2 border-border px-6 py-8 text-center font-pixel text-lg uppercase tracking-widest text-muted">
+        Greg Mall, human. High score: 2026.
       </footer>
     </div>
   );
