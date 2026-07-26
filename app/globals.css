@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #0e0a14;
-  --foreground: #f5f1f8;
-  --muted: #9b93a8;
-  --accent: #ff2f92;
-  --accent-2: #2fd9ff;
-  --card: #17121f;
-  --border: #2e2438;
+  --background: #04141c;
+  --foreground: #e3f2f0;
+  --muted: #6f93a0;
+  --accent: #2de3c4;
+  --accent-2: #ff8f6b;
+  --card: #0b2530;
+  --border: #1c3f4c;
 }
 
 @theme inline {
@@ -19,7 +19,7 @@
   --color-card: var(--card);
   --color-border: var(--border);
   --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-bebas-neue);
+  --font-display: var(--font-quicksand);
 }
 
 body {
@@ -36,38 +36,48 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background: radial-gradient(
-      ellipse 55% 45% at 12% 8%,
-      color-mix(in srgb, var(--accent) 22%, transparent),
+      ellipse 60% 50% at 85% 0%,
+      color-mix(in srgb, var(--accent) 18%, transparent),
       transparent 60%
     ),
     radial-gradient(
-      ellipse 50% 45% at 90% 15%,
-      color-mix(in srgb, var(--accent-2) 18%, transparent),
+      ellipse 55% 45% at 5% 100%,
+      color-mix(in srgb, var(--accent-2) 10%, transparent),
       transparent 60%
     );
 }
 
-@keyframes vinyl-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.vinyl-spin {
-  animation: vinyl-spin 6s linear infinite;
-}
-
-@keyframes eq-bounce {
+@keyframes bob {
   0%,
   100% {
-    transform: scaleY(0.3);
+    transform: translateY(0);
   }
   50% {
-    transform: scaleY(1);
+    transform: translateY(-14px);
   }
 }
 
-.eq-bar {
-  animation: eq-bounce 1s ease-in-out infinite;
-  transform-origin: bottom;
+.bob {
+  animation: bob 6s ease-in-out infinite;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: translateY(-260px) translateX(10px);
+    opacity: 0;
+  }
+}
+
+.bubble {
+  animation: rise linear infinite;
 }

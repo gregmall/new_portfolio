@@ -1,8 +1,13 @@
+import React from 'react';
+import { Link, Element } from 'react-scroll'
+import { Bubbles, SectionHeading, Jellyfish, Panel } from './functions';
+
+
 const projects = [
   {
     name: "Wired To Burn",
     description:
-      "This is a webstie for my band where we can post our latest music, post updates and upcoming shows and connect with fans and other bands.",
+      "This is a website for my band where we can post our latest music, post updates and upcoming shows and connect with fans and other bands.",
     tech: ["Next.js", "Tailwind", "Firebase"],
     href: "https://wiredtoburn.com",
   },
@@ -72,82 +77,36 @@ const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
-const eqDelays = ["0s", "0.15s", "0.3s", "0.1s"];
+const bubbles = [
+  { left: "8%", size: 6, duration: "7s", delay: "0s" },
+  { left: "22%", size: 4, duration: "9s", delay: "1.5s" },
+  { left: "40%", size: 8, duration: "6s", delay: "0.5s" },
+  { left: "58%", size: 5, duration: "8s", delay: "2.5s" },
+  { left: "74%", size: 7, duration: "10s", delay: "1s" },
+  { left: "88%", size: 4, duration: "7.5s", delay: "3s" },
+];
 
-function EqBars({ className = "" }: { className?: string }) {
-  return (
-    <span className={`flex items-end gap-[2px] ${className}`}>
-      {eqDelays.map((delay, i) => (
-        <span
-          key={i}
-          className="eq-bar w-[3px] rounded-full bg-linear-to-t from-accent to-accent-2"
-          style={{ height: "12px", animationDelay: delay }}
-        />
-      ))}
-    </span>
-  );
-}
 
-function Vinyl({ className = "" }: { className?: string }) {
-  return (
-    <div
-      className={`vinyl-spin rounded-full ${className}`}
-      style={{
-        background:
-          "repeating-radial-gradient(circle at center, #000 0px, #000 3px, #221a2b 4px, #000 5px)",
-        boxShadow: "0 0 40px -10px rgba(255,47,146,0.4)",
-      }}
-    >
-      <div className="relative h-full w-full">
-        <div
-          className="absolute left-1/2 top-1/2 h-[38%] w-[38%] -translate-x-1/2 -translate-y-1/2 rounded-full"
-          style={{
-            background: "linear-gradient(135deg, var(--accent), var(--accent-2))",
-          }}
-        />
-        <div className="absolute left-1/2 top-1/2 h-[6%] w-[6%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-background" />
-      </div>
-    </div>
-  );
-}
-
-function Panel({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) {
-  return (
-    <div
-      className={`relative overflow-hidden rounded-lg border border-border bg-card ${className}`}
-    >
-      <span className="absolute inset-x-0 top-0 h-[3px] bg-linear-to-r from-accent to-accent-2" />
-      {children}
-    </div>
-  );
-}
-
-function SectionHeading({ children }: { children: React.ReactNode }) {
-  return (
-    <h2 className="flex items-center gap-3 font-display text-2xl tracking-wide text-foreground">
-      <span className="text-accent">&#9834;</span>
-      {children}
-      <span className="h-px flex-1 bg-linear-to-r from-accent-2/50 to-transparent" />
-    </h2>
-  );
-}
 
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
+      <svg width="0" height="0" className="absolute">
+        <defs>
+          <linearGradient id="jelly-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#2de3c4" />
+            <stop offset="100%" stopColor="#7bd8ff" />
+          </linearGradient>
+        </defs>
+      </svg>
+
       <header className="sticky top-0 z-10 border-b border-border bg-background/85 backdrop-blur-xl">
         <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
           <a
             href="#"
-            className="flex items-center gap-2 font-display text-2xl tracking-wide text-foreground"
+            className="flex items-center gap-2 font-display text-lg font-bold tracking-wide text-foreground"
           >
-            <span className="text-accent">&#9834;</span>
+            <span className="h-2 w-2 rounded-full bg-accent" />
             Greg Mall
           </a>
           <ul className="flex gap-6 text-xs font-medium uppercase tracking-widest text-muted">
@@ -155,7 +114,7 @@ export default function Home() {
               <li key={link.href}>
                 <a
                   href={link.href}
-                  className="transition-colors hover:text-accent-2"
+                  className="transition-colors hover:text-accent"
                 >
                   {link.label}
                 </a>
@@ -166,26 +125,31 @@ export default function Home() {
       </header>
 
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-28 px-6 py-24">
+      
         <section
           id="about"
           className="relative flex flex-col items-start gap-6"
         >
-          <Vinyl className="pointer-events-none absolute -right-6 -top-14 hidden h-48 w-48 sm:block" />
+          <Bubbles />
+          <Jellyfish className="bob pointer-events-none absolute -right-4 -top-6 hidden h-56 w-40 sm:block" />
 
-          <span className="inline-flex items-center gap-3 rounded-full border border-border bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted">
-            <EqBars />
+          <span className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-4 py-1.5 text-xs uppercase tracking-widest text-muted">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
+            </span>
             Open to new opportunities
           </span>
 
-          <h1 className="font-display text-7xl leading-[0.9] tracking-wide text-transparent sm:text-8xl">
-            <span className="bg-linear-to-r from-accent to-accent-2 bg-clip-text drop-shadow-[0_0_30px_rgba(255,47,146,0.35)]">
+          <h1 className="font-display text-6xl font-bold tracking-tight text-transparent sm:text-7xl">
+            <span className="bg-linear-to-r from-accent to-[#7bd8ff] bg-clip-text drop-shadow-[0_0_25px_rgba(45,227,196,0.3)]">
               Greg Mall
             </span>
           </h1>
-          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent-2">
-            <span className="h-px w-8 bg-accent-2/60" />
+          <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-accent">
+            <span className="h-px w-8 bg-accent/60" />
             Software Engineer
-            <span className="h-px w-8 bg-accent-2/60" />
+            <span className="h-px w-8 bg-accent/60" />
           </p>
           <p className="max-w-xl text-lg leading-8 text-muted">
             I build things for the web. A life long musician and artist. I
@@ -194,13 +158,13 @@ export default function Home() {
           <div className="flex gap-4 pt-2 text-sm font-medium">
             <a
               href="#projects"
-              className="rounded-full bg-linear-to-r from-accent to-accent-2 px-6 py-3 text-background shadow-[0_0_30px_-8px_var(--accent)] transition-transform hover:scale-105"
+              className="rounded-full bg-linear-to-r from-accent to-[#7bd8ff] px-6 py-3 text-background shadow-[0_0_30px_-8px_var(--accent)] transition-transform hover:scale-105"
             >
-              &#9654; View Projects
+              View Projects
             </a>
             <a
               href="#contact"
-              className="rounded-full border border-border px-6 py-3 transition-colors hover:border-accent-2 hover:text-accent-2"
+              className="rounded-full border border-border px-6 py-3 transition-colors hover:border-accent hover:text-accent"
             >
               Get in touch
             </a>
@@ -219,9 +183,9 @@ export default function Home() {
               >
                 <Panel className="flex h-full flex-col gap-3 p-6 transition-all hover:-translate-y-1 hover:border-accent">
                   <span className="text-xs uppercase tracking-widest text-accent-2">
-                    Track {String(i + 1).padStart(2, "0")}
+                    Dive {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-display text-xl tracking-wide text-foreground">
+                  <h3 className="font-display text-lg font-semibold text-foreground">
                     {project.name}
                   </h3>
                   <p className="text-sm leading-6 text-muted">
@@ -231,7 +195,7 @@ export default function Home() {
                     {project.tech.map((tech) => (
                       <li
                         key={tech}
-                        className="rounded-full border border-border px-2.5 py-1 text-accent-2"
+                        className="rounded-full border border-border px-2.5 py-1 text-accent"
                       >
                         {tech}
                       </li>
@@ -248,8 +212,8 @@ export default function Home() {
           <div className="grid gap-6 sm:grid-cols-2">
             {skills.map((group) => (
               <Panel key={group.category} className="flex flex-col gap-3 p-6">
-                <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent">
-                  <span>&#9834;</span>
+                <h3 className="flex items-center gap-2 text-xs font-semibold uppercase tracking-widest text-accent-2">
+                  <span className="h-1.5 w-1.5 rounded-full bg-accent-2" />
                   {group.category}
                 </h3>
                 <ul className="flex flex-wrap gap-2">
@@ -272,8 +236,8 @@ export default function Home() {
           className="flex flex-col items-center gap-6 text-center"
         >
           <Panel className="flex w-full flex-col items-center gap-6 p-10">
-            <h2 className="font-display text-4xl tracking-wide sm:text-5xl">
-              The Green Room
+            <h2 className="font-display text-3xl font-bold tracking-wide sm:text-4xl">
+              Message in a Bottle
             </h2>
             <p className="max-w-xl leading-7 text-muted">
               Open to new opportunities and interesting projects. Reach out
@@ -309,7 +273,7 @@ export default function Home() {
       </main>
 
       <footer className="border-t border-border px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
-        Greg Mall, human. On repeat since 2026.
+        Greg Mall, human. Adrift since 2026.
       </footer>
     </div>
   );
