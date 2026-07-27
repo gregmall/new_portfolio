@@ -1,3 +1,23 @@
+'use client'
+import { useState, useEffect } from 'react'
+
+function Clock() {
+  const [time, setTime] = useState<string | null>(null);
+
+  useEffect(() => {
+    const update = () =>
+      setTime(
+        new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+      );
+    update();
+    const id = setInterval(update, 30000);
+    return () => clearInterval(id);
+  }, []);
+
+  return <span>{time ?? "--:--"}</span>;
+}
+
+
 export function DynamicIsland({ className = "" }: { className?: string }) {
   return (
     <div
@@ -9,7 +29,7 @@ export function DynamicIsland({ className = "" }: { className?: string }) {
 export function StatusBar() {
   return (
     <div className="relative z-10 flex items-center justify-between px-7 pb-1 pt-4 text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.4)]">
-      <span className="text-sm font-semibold">9:41</span>
+      <span className="text-sm font-semibold"><Clock /></span>
       <div className="flex items-center gap-1.5">
         <svg viewBox="0 0 18 12" className="h-3 w-4" fill="currentColor">
           <rect x="0" y="7" width="3" height="5" rx="0.5" />
