@@ -222,6 +222,7 @@ const dockApps = apps.filter((a) =>
 );
 
 export default function Home() {
+  const d = new Date()
   return (
     <div className="flex flex-1 flex-col bg-[#1c1c1e]">
       <div
@@ -401,7 +402,7 @@ export default function Home() {
         </section>
 
         <footer className="py-6 text-center text-xs text-muted">
-          Greg Mall. Software Engineer. Version 2026.1
+          Greg Mall. Software Engineer. Version {d.getFullYear()}.{d.getDate()}.{d.getMonth()+1}
         </footer>
       </main>
     </div>
