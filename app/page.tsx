@@ -1,3 +1,4 @@
+'use client'
 import {
   AppIcon,
   Chevron,
@@ -220,9 +221,17 @@ const apps = [
 const dockApps = apps.filter((a) =>
   ["Projects", "Skills", "Contact", "Mail"].includes(a.label)
 );
-
+import { useState } from 'react'
 export default function Home() {
   const d = new Date()
+  const [day, setDay] = useState(d.getDate());
+  const [month, setMonth]= useState(d.getMonth()+1);
+  const [year, setYear] = useState(d.getFullYear());
+
+
+
+
+
   return (
     <div className="flex flex-1 flex-col bg-[#1c1c1e]">
       <div
@@ -402,7 +411,7 @@ export default function Home() {
         </section>
 
         <footer className="py-6 text-center text-xs text-muted">
-          Greg Mall. Software Engineer. Version {d.getFullYear()}.{d.getDate()}.{d.getMonth()+1}
+          Greg Mall. Software Engineer. Version {year}.{day}.{month}
         </footer>
       </main>
     </div>
