@@ -1,56 +1,30 @@
 @import "tailwindcss";
 
 :root {
-  --background: #008080;
-  --foreground: #000000;
-  --face: #c0c0c0;
-  --face-dark: #808080;
-  --titlebar-from: #000080;
-  --titlebar-to: #1084d0;
-  --titlebar-text: #ffffff;
-  --link: #0000ee;
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #8e8e93;
+  --accent: #0a84ff;
+  --accent-2: #30d158;
+  --card: #1c1c1e;
+  --border: #2c2c2e;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --color-face: var(--face);
-  --color-face-dark: var(--face-dark);
-  --color-titlebar-from: var(--titlebar-from);
-  --color-titlebar-to: var(--titlebar-to);
-  --color-titlebar-text: var(--titlebar-text);
-  --color-link: var(--link);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-2: var(--accent-2);
+  --color-card: var(--card);
+  --color-border: var(--border);
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    Roboto, sans-serif;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: Tahoma, "MS Sans Serif", Geneva, Arial, sans-serif;
-}
-
-.win-raised {
-  background: var(--face);
-  box-shadow:
-    inset -1px -1px 0 #000000,
-    inset 1px 1px 0 #ffffff,
-    inset -2px -2px 0 #808080,
-    inset 2px 2px 0 #dfdfdf;
-}
-
-.win-sunken {
-  background: var(--face);
-  box-shadow:
-    inset 1px 1px 0 #000000,
-    inset -1px -1px 0 #ffffff,
-    inset 2px 2px 0 #808080,
-    inset -2px -2px 0 #dfdfdf;
-}
-
-.win-btn:active {
-  box-shadow:
-    inset 1px 1px 0 #000000,
-    inset -1px -1px 0 #ffffff,
-    inset 2px 2px 0 #808080,
-    inset -2px -2px 0 #dfdfdf;
-  transform: translate(1px, 1px);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI",
+    Roboto, sans-serif;
 }
