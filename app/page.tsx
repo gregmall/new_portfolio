@@ -1,4 +1,3 @@
-'use client'
 import {
   AppIcon,
   Chevron,
@@ -6,8 +5,8 @@ import {
   GroupedCard,
   SectionLabel,
   StatusBar,
+  Version,
 } from "./functions";
-import { useState, useEffect } from "react";
 
 const projects = [
   {
@@ -224,22 +223,6 @@ const dockApps = apps.filter((a) =>
 );
 
 export default function Home() {
-
-  const [day, setDay]= useState<number | null>(null);
-  const [month, setMonth]=useState<number | null>(null);
-  const [year, setYear]=useState<number | null>(null);
-
-  useEffect(()=>{
-    const date = new Date();
-    const today=(()=>{
-      setDay(date.getDate())
-      setMonth(date.getMonth()+1)
-      setYear(date.getFullYear())
-    })
-    today();
-    
-  },[])
-
   return (
     <div className="flex flex-1 flex-col bg-[#1c1c1e]">
       <div
@@ -422,7 +405,7 @@ export default function Home() {
         </section>
 
         <footer className="py-6 text-center text-xs text-muted">
-          Greg Mall. Software Engineer. Version {year}.{month}.{day}
+          Greg Mall. Software Engineer. <Version />
         </footer>
       </main>
     </div>

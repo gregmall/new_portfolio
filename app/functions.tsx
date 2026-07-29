@@ -18,6 +18,20 @@ function Clock() {
   return <span>{time ?? "--:--"}</span>;
 }
 
+export function Version() {
+  const [date, setDate] = useState<string | null>(null);
+
+  useEffect(() => {
+    const update = () => {
+      const now = new Date();
+      setDate(`${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`);
+    };
+    update();
+  }, []);
+
+  return <span>Version {date ?? "--.--.--"}</span>;
+}
+
 export function DynamicIsland({ className = "" }: { className?: string }) {
   return (
     <div
