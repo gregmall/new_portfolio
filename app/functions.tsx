@@ -7,7 +7,10 @@ export function Version() {
 
   useEffect(() => {
     const now = new Date();
+    const getDate=()=>{
     setDate(`${now.getFullYear()}.${now.getMonth() + 1}.${now.getDate()}`);
+    }
+    getDate()
   }, []);
 
   return <span>Version {date ?? "--.--.--"}</span>;
