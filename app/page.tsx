@@ -292,7 +292,7 @@ export default function Home() {
         </Element>
 
         <p className="pb-2 text-center text-[11px] text-muted">
-          macOS Tahoe 26 &middot; <DateLabel />
+          Check Me Out &middot; <DateLabel />
         </p>
       </main>
 
