@@ -3,11 +3,11 @@
 import { Link as ScrollLink, Element } from "react-scroll";
 import {
   DateStamp,
-  Ornament,
-  Panel,
+  LevelMeter,
+  RackPanel,
   SectionHeading,
-  Sunburst,
   Tag,
+  Waveform,
 } from "./functions";
 
 const projects = [
@@ -17,6 +17,7 @@ const projects = [
       "This is a webstie for my band where we can post our latest music, post updates and upcoming shows and connect with fans and other bands.",
     tech: ["Next.js", "Tailwind", "Firebase"],
     href: "https://wiredtoburn.com",
+    level: 9,
   },
   {
     name: "E-Commerce Website",
@@ -24,6 +25,7 @@ const projects = [
       "This is an e-commerce website I created for my glass art. It utilizes Firebase for auth and as a backend service and database. It integrates Stripe API to take payments. ",
     tech: ["React", "Node.js", "Firebase"],
     href: "https://synthesisglass.com",
+    level: 7,
   },
   {
     name: "KeeperAI",
@@ -31,6 +33,7 @@ const projects = [
       "I was part of a team that build an app that showcases soft skills in a work environment, graphically showcasing a personality determined by a series of question answered with images and short statements.  We also created a social media component and affinity groups. ",
     tech: ["React", "Firebase", "Docker"],
     href: "https://keeper-hr-test.web.app/home",
+    level: 8,
   },
 ];
 
@@ -87,27 +90,28 @@ const navLinks = [
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <header className="border-b border-border">
-        <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-6">
+      <header className="border-b border-border bg-card">
+        <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
           <ScrollLink
             to="about"
             smooth
             duration={400}
-            offset={-40}
-            className="cursor-pointer font-display text-2xl tracking-[0.15em] text-foreground"
+            offset={-56}
+            className="flex cursor-pointer items-center gap-2 font-display text-sm uppercase tracking-[0.2em] text-foreground"
           >
-            G · M
+            <span className="h-2 w-2 rounded-full bg-accent-2 shadow-[0_0_6px_2px_rgba(232,163,61,0.6)]" />
+            Greg Mall Studios
           </ScrollLink>
-          <ul className="flex items-center gap-4 text-xs uppercase tracking-[0.25em] text-muted">
+          <ul className="flex items-center gap-5 font-display text-xs uppercase tracking-[0.2em] text-muted">
             {navLinks.map((link, i) => (
-              <li key={link.to} className="flex items-center gap-4">
-                {i > 0 && <span className="text-accent/50">&#9670;</span>}
+              <li key={link.to} className="flex items-center gap-5">
+                {i > 0 && <span className="h-4 w-px bg-border" />}
                 <ScrollLink
                   to={link.to}
                   smooth
                   duration={400}
-                  offset={-40}
-                  className="cursor-pointer transition-colors hover:text-accent"
+                  offset={-56}
+                  className="cursor-pointer transition-colors hover:text-accent-2"
                 >
                   {link.label}
                 </ScrollLink>
@@ -117,31 +121,32 @@ export default function Home() {
         </nav>
       </header>
 
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-20 px-6 py-20">
+      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-20 px-6 py-16">
         <Element name="about">
-          <section className="relative flex flex-col items-center gap-6 py-10 text-center">
-            <Sunburst className="pointer-events-none absolute top-0 left-1/2 h-40 w-96 -translate-x-1/2 -translate-y-6 text-accent/20" />
-            <span className="relative border border-accent/50 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-accent">
-              Open To New Opportunities
+          <section className="flex flex-col items-start gap-6">
+            <span className="inline-flex items-center gap-2 border border-border bg-card px-3 py-1.5 text-xs uppercase tracking-[0.2em] text-muted">
+              <span className="h-2.5 w-2.5 rounded-full bg-accent shadow-[0_0_8px_3px_rgba(255,59,48,0.55)]" />
+              Rec &middot; Open To New Opportunities
             </span>
-            <h1 className="relative font-display text-6xl tracking-[0.08em] text-foreground sm:text-7xl">
+
+            <h1 className="font-display text-5xl uppercase tracking-wide text-foreground sm:text-7xl">
               Greg Mall
             </h1>
-            <Ornament className="w-64" />
-            <p className="text-sm uppercase tracking-[0.35em] text-muted">
+            <Waveform className="h-6" />
+            <p className="font-display text-sm uppercase tracking-[0.35em] text-accent-2">
               Software Engineer
             </p>
-            <p className="max-w-xl leading-8 text-muted">
+            <p className="max-w-xl leading-7 text-muted">
               I build things for the web. A life long musician and artist. I
               love to make things.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-5 pt-4 text-xs uppercase tracking-[0.25em]">
+            <div className="flex flex-wrap items-center gap-4 pt-4">
               <ScrollLink
                 to="projects"
                 smooth
                 duration={400}
-                offset={-40}
-                className="cursor-pointer border border-accent bg-accent px-7 py-3 text-background transition-colors hover:bg-transparent hover:text-accent"
+                offset={-56}
+                className="console-press cursor-pointer border border-accent-2 bg-accent-2 px-6 py-3 font-display text-xs uppercase tracking-[0.2em] text-background"
               >
                 View Projects
               </ScrollLink>
@@ -149,8 +154,8 @@ export default function Home() {
                 to="contact"
                 smooth
                 duration={400}
-                offset={-40}
-                className="cursor-pointer border border-border px-7 py-3 text-foreground transition-colors hover:border-accent hover:text-accent"
+                offset={-56}
+                className="console-press cursor-pointer border border-border bg-card px-6 py-3 font-display text-xs uppercase tracking-[0.2em] text-foreground"
               >
                 Get In Touch
               </ScrollLink>
@@ -159,9 +164,9 @@ export default function Home() {
         </Element>
 
         <Element name="projects">
-          <section className="flex flex-col gap-10">
-            <SectionHeading>Projects</SectionHeading>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="flex flex-col gap-8">
+            <SectionHeading tag="A">Projects — Channel Strips</SectionHeading>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map((project, i) => (
                 <a
                   key={project.name}
@@ -169,12 +174,15 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Panel className="h-full">
-                    <div className="flex h-full flex-col gap-3 p-6">
-                      <span className="font-display text-2xl text-accent">
-                        {String(i + 1).padStart(2, "0")}
-                      </span>
-                      <h3 className="text-base font-medium tracking-wide text-foreground">
+                  <RackPanel className="h-full">
+                    <div className="flex h-full flex-col gap-3 px-6 pb-6 pt-8">
+                      <div className="flex items-center justify-between">
+                        <span className="font-display text-xs uppercase tracking-[0.2em] text-accent-2">
+                          CH.{String(i + 1).padStart(2, "0")}
+                        </span>
+                        <LevelMeter level={project.level} />
+                      </div>
+                      <h3 className="text-base font-semibold text-foreground">
                         {project.name}
                       </h3>
                       <p className="text-sm leading-6 text-muted">
@@ -186,7 +194,7 @@ export default function Home() {
                         ))}
                       </div>
                     </div>
-                  </Panel>
+                  </RackPanel>
                 </a>
               ))}
             </div>
@@ -194,13 +202,13 @@ export default function Home() {
         </Element>
 
         <Element name="skills">
-          <section className="flex flex-col gap-10">
-            <SectionHeading>Skills</SectionHeading>
-            <div className="grid gap-8 sm:grid-cols-2">
+          <section className="flex flex-col gap-8">
+            <SectionHeading tag="B">Skills — Patch Bay</SectionHeading>
+            <div className="grid gap-6 sm:grid-cols-2">
               {skills.map((group) => (
-                <Panel key={group.category}>
-                  <div className="flex flex-col gap-3 p-6">
-                    <h3 className="text-xs uppercase tracking-[0.3em] text-accent">
+                <RackPanel key={group.category}>
+                  <div className="flex flex-col gap-3 px-6 pb-6 pt-8">
+                    <h3 className="font-display text-xs uppercase tracking-[0.25em] text-accent-2">
                       {group.category}
                     </h3>
                     <div className="flex flex-wrap gap-2">
@@ -209,20 +217,20 @@ export default function Home() {
                       ))}
                     </div>
                   </div>
-                </Panel>
+                </RackPanel>
               ))}
             </div>
           </section>
         </Element>
 
         <Element name="contact">
-          <section className="flex flex-col items-center gap-8 text-center">
-            <SectionHeading>Contact</SectionHeading>
-            <Panel className="w-full">
-              <div className="flex flex-col items-center gap-6 p-10">
+          <section className="flex flex-col items-center gap-6 text-center">
+            <SectionHeading tag="C">Contact — Master Bus</SectionHeading>
+            <RackPanel className="w-full">
+              <div className="flex flex-col items-center gap-6 px-6 pb-10 pt-10">
                 <p className="max-w-xl leading-7 text-muted">
                   Open to new opportunities and interesting projects. Reach
-                  out through any of the links below.
+                  out through any of the outputs below.
                 </p>
                 <ul className="flex gap-6">
                   {socials.map((social) => (
@@ -236,31 +244,36 @@ export default function Home() {
                         }
                         rel="noopener noreferrer"
                         aria-label={social.label}
-                        className="flex h-12 w-12 items-center justify-center border border-border text-foreground transition-colors hover:border-accent hover:text-accent"
+                        className="console-press flex flex-col items-center gap-2"
                       >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.4"
-                          className="h-5 w-5"
-                        >
-                          {social.icon}
-                        </svg>
+                        <span className="flex h-14 w-14 items-center justify-center rounded-full border-2 border-border bg-background text-foreground transition-colors hover:border-accent-2 hover:text-accent-2">
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.5"
+                            className="h-5 w-5"
+                          >
+                            {social.icon}
+                          </svg>
+                        </span>
+                        <span className="font-display text-[10px] uppercase tracking-[0.2em] text-muted">
+                          {social.label}
+                        </span>
                       </a>
                     </li>
                   ))}
                 </ul>
               </div>
-            </Panel>
+            </RackPanel>
           </section>
         </Element>
       </main>
 
-      <footer className="border-t border-border px-6 py-10 text-center">
-        <Ornament className="mx-auto mb-4 max-w-xs" />
-        <p className="text-xs uppercase tracking-[0.3em] text-muted">
-          Greg Mall &mdash; Software Engineer &middot; <DateStamp />
+      <footer className="border-t border-border bg-card px-6 py-8 text-center">
+        <Waveform className="mx-auto mb-4 h-4 justify-center" />
+        <p className="font-display text-[11px] uppercase tracking-[0.25em] text-muted">
+          Greg Mall &middot; Software Engineer &middot; <DateStamp />
         </p>
       </footer>
     </div>

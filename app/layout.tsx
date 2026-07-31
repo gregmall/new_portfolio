@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-import { Josefin_Sans, Poiret_One } from "next/font/google";
+import { Oswald } from "next/font/google";
 import "./globals.css";
 
-const poiretOne = Poiret_One({
-  variable: "--font-poiret-one",
+const oswald = Oswald({
+  variable: "--font-oswald",
   subsets: ["latin"],
-  weight: "400",
-});
-
-const josefinSans = Josefin_Sans({
-  variable: "--font-josefin-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -27,7 +21,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${poiretOne.variable} ${josefinSans.variable} h-full antialiased scroll-smooth`}
+      className={`${oswald.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
