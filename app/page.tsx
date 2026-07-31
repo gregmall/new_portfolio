@@ -1,7 +1,14 @@
 "use client";
 
 import { Link as ScrollLink, Element } from "react-scroll";
-import { FigureLabel, Panel, RevisionStamp, Tag } from "./functions";
+import {
+  DateStamp,
+  Ornament,
+  Panel,
+  SectionHeading,
+  Sunburst,
+  Tag,
+} from "./functions";
 
 const projects = [
   {
@@ -80,25 +87,26 @@ const navLinks = [
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-10 border-b border-border bg-background/95">
-        <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4 text-sm">
+      <header className="border-b border-border">
+        <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-6">
           <ScrollLink
             to="about"
             smooth
             duration={400}
-            offset={-64}
-            className="cursor-pointer text-accent"
+            offset={-40}
+            className="cursor-pointer font-display text-2xl tracking-[0.15em] text-foreground"
           >
-            [GM]
+            G · M
           </ScrollLink>
-          <ul className="flex gap-6 uppercase tracking-widest text-muted">
-            {navLinks.map((link) => (
-              <li key={link.to}>
+          <ul className="flex items-center gap-4 text-xs uppercase tracking-[0.25em] text-muted">
+            {navLinks.map((link, i) => (
+              <li key={link.to} className="flex items-center gap-4">
+                {i > 0 && <span className="text-accent/50">&#9670;</span>}
                 <ScrollLink
                   to={link.to}
                   smooth
                   duration={400}
-                  offset={-64}
+                  offset={-40}
                   className="cursor-pointer transition-colors hover:text-accent"
                 >
                   {link.label}
@@ -109,31 +117,31 @@ export default function Home() {
         </nav>
       </header>
 
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-20 px-6 py-16">
+      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-20 px-6 py-20">
         <Element name="about">
-          <section className="flex flex-col items-start gap-5">
-            <span className="border border-border px-3 py-1 text-xs uppercase tracking-widest text-accent">
-              STATUS: OPEN_TO_WORK
+          <section className="relative flex flex-col items-center gap-6 py-10 text-center">
+            <Sunburst className="pointer-events-none absolute top-0 left-1/2 h-40 w-96 -translate-x-1/2 -translate-y-6 text-accent/20" />
+            <span className="relative border border-accent/50 px-4 py-1.5 text-xs uppercase tracking-[0.3em] text-accent">
+              Open To New Opportunities
             </span>
-            <h1 className="text-4xl leading-tight tracking-tight text-foreground sm:text-6xl">
+            <h1 className="relative font-display text-6xl tracking-[0.08em] text-foreground sm:text-7xl">
               Greg Mall
             </h1>
-            <p className="flex items-center gap-3 text-sm uppercase tracking-[0.3em] text-muted">
-              <span className="h-px w-8 bg-border" />
+            <Ornament className="w-64" />
+            <p className="text-sm uppercase tracking-[0.35em] text-muted">
               Software Engineer
-              <span className="h-px w-8 bg-border" />
             </p>
-            <p className="max-w-xl text-sm leading-7 text-muted">
+            <p className="max-w-xl leading-8 text-muted">
               I build things for the web. A life long musician and artist. I
               love to make things.
             </p>
-            <div className="flex gap-4 pt-4 text-xs uppercase tracking-widest">
+            <div className="flex flex-wrap items-center justify-center gap-5 pt-4 text-xs uppercase tracking-[0.25em]">
               <ScrollLink
                 to="projects"
                 smooth
                 duration={400}
-                offset={-64}
-                className="cursor-pointer border border-accent bg-accent px-6 py-3 text-background transition-colors hover:bg-transparent hover:text-accent"
+                offset={-40}
+                className="cursor-pointer border border-accent bg-accent px-7 py-3 text-background transition-colors hover:bg-transparent hover:text-accent"
               >
                 View Projects
               </ScrollLink>
@@ -141,8 +149,8 @@ export default function Home() {
                 to="contact"
                 smooth
                 duration={400}
-                offset={-64}
-                className="cursor-pointer border border-border px-6 py-3 text-foreground transition-colors hover:border-accent hover:text-accent"
+                offset={-40}
+                className="cursor-pointer border border-border px-7 py-3 text-foreground transition-colors hover:border-accent hover:text-accent"
               >
                 Get In Touch
               </ScrollLink>
@@ -151,9 +159,9 @@ export default function Home() {
         </Element>
 
         <Element name="projects">
-          <section className="flex flex-col gap-8">
-            <FigureLabel index="01">Projects</FigureLabel>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <section className="flex flex-col gap-10">
+            <SectionHeading>Projects</SectionHeading>
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map((project, i) => (
                 <a
                   key={project.name}
@@ -161,23 +169,23 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Panel className="flex h-full flex-col gap-3 p-6 transition-colors hover:border-accent">
-                    <span className="text-xs text-accent">
-                      NO. {String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-sm font-semibold leading-relaxed text-foreground">
-                      {project.name}
-                    </h3>
-                    <p className="text-xs leading-6 text-muted">
-                      {project.description}
-                    </p>
-                    <ul className="mt-auto flex flex-wrap gap-2 pt-2">
-                      {project.tech.map((tech) => (
-                        <li key={tech}>
-                          <Tag>{tech}</Tag>
-                        </li>
-                      ))}
-                    </ul>
+                  <Panel className="h-full">
+                    <div className="flex h-full flex-col gap-3 p-6">
+                      <span className="font-display text-2xl text-accent">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <h3 className="text-base font-medium tracking-wide text-foreground">
+                        {project.name}
+                      </h3>
+                      <p className="text-sm leading-6 text-muted">
+                        {project.description}
+                      </p>
+                      <div className="mt-auto flex flex-wrap gap-2 pt-2">
+                        {project.tech.map((tech) => (
+                          <Tag key={tech}>{tech}</Tag>
+                        ))}
+                      </div>
+                    </div>
                   </Panel>
                 </a>
               ))}
@@ -186,21 +194,21 @@ export default function Home() {
         </Element>
 
         <Element name="skills">
-          <section className="flex flex-col gap-8">
-            <FigureLabel index="02">Skills</FigureLabel>
-            <div className="grid gap-6 sm:grid-cols-2">
+          <section className="flex flex-col gap-10">
+            <SectionHeading>Skills</SectionHeading>
+            <div className="grid gap-8 sm:grid-cols-2">
               {skills.map((group) => (
-                <Panel key={group.category} className="flex flex-col gap-3 p-6">
-                  <h3 className="text-xs uppercase tracking-widest text-accent">
-                    {group.category}
-                  </h3>
-                  <ul className="flex flex-wrap gap-2">
-                    {group.items.map((item) => (
-                      <li key={item}>
-                        <Tag>{item}</Tag>
-                      </li>
-                    ))}
-                  </ul>
+                <Panel key={group.category}>
+                  <div className="flex flex-col gap-3 p-6">
+                    <h3 className="text-xs uppercase tracking-[0.3em] text-accent">
+                      {group.category}
+                    </h3>
+                    <div className="flex flex-wrap gap-2">
+                      {group.items.map((item) => (
+                        <Tag key={item}>{item}</Tag>
+                      ))}
+                    </div>
+                  </div>
                 </Panel>
               ))}
             </div>
@@ -208,47 +216,52 @@ export default function Home() {
         </Element>
 
         <Element name="contact">
-          <section className="flex flex-col items-center gap-6 text-center">
-            <FigureLabel index="03">Contact</FigureLabel>
-            <Panel className="flex w-full flex-col items-center gap-6 p-10">
-              <p className="max-w-xl text-sm leading-7 text-muted">
-                Open to new opportunities and interesting projects. Reach out
-                through any of the links below.
-              </p>
-              <ul className="flex gap-4">
-                {socials.map((social) => (
-                  <li key={social.label}>
-                    <a
-                      href={social.href}
-                      target={
-                        social.href.startsWith("mailto:")
-                          ? undefined
-                          : "_blank"
-                      }
-                      rel="noopener noreferrer"
-                      aria-label={social.label}
-                      className="flex h-11 w-11 items-center justify-center border border-border text-foreground transition-colors hover:border-accent hover:text-accent"
-                    >
-                      <svg
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        className="h-5 w-5"
+          <section className="flex flex-col items-center gap-8 text-center">
+            <SectionHeading>Contact</SectionHeading>
+            <Panel className="w-full">
+              <div className="flex flex-col items-center gap-6 p-10">
+                <p className="max-w-xl leading-7 text-muted">
+                  Open to new opportunities and interesting projects. Reach
+                  out through any of the links below.
+                </p>
+                <ul className="flex gap-6">
+                  {socials.map((social) => (
+                    <li key={social.label}>
+                      <a
+                        href={social.href}
+                        target={
+                          social.href.startsWith("mailto:")
+                            ? undefined
+                            : "_blank"
+                        }
+                        rel="noopener noreferrer"
+                        aria-label={social.label}
+                        className="flex h-12 w-12 items-center justify-center border border-border text-foreground transition-colors hover:border-accent hover:text-accent"
                       >
-                        {social.icon}
-                      </svg>
-                    </a>
-                  </li>
-                ))}
-              </ul>
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.4"
+                          className="h-5 w-5"
+                        >
+                          {social.icon}
+                        </svg>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </Panel>
           </section>
         </Element>
       </main>
 
-      <footer className="border-t border-border px-6 py-8 text-center text-xs uppercase tracking-widest text-muted">
-        Greg Mall — Software Engineer &middot; <RevisionStamp />
+      <footer className="border-t border-border px-6 py-10 text-center">
+        <Ornament className="mx-auto mb-4 max-w-xs" />
+        <p className="text-xs uppercase tracking-[0.3em] text-muted">
+          Greg Mall &mdash; Software Engineer &middot; <DateStamp />
+        </p>
       </footer>
     </div>
   );

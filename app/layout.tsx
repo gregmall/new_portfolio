@@ -1,9 +1,15 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Mono } from "next/font/google";
+import { Josefin_Sans, Poiret_One } from "next/font/google";
 import "./globals.css";
 
-const plexMono = IBM_Plex_Mono({
-  variable: "--font-plex-mono",
+const poiretOne = Poiret_One({
+  variable: "--font-poiret-one",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const josefinSans = Josefin_Sans({
+  variable: "--font-josefin-sans",
   subsets: ["latin"],
   weight: ["400", "500", "600"],
 });
@@ -21,7 +27,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexMono.variable} h-full antialiased scroll-smooth`}
+      className={`${poiretOne.variable} ${josefinSans.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
