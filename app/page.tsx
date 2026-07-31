@@ -1,7 +1,7 @@
 "use client";
 
 import { Link as ScrollLink, Element } from "react-scroll";
-import { Panel, SectionHeading, Invader } from "./functions";
+import { Panel, PrintDate, SectionHeading, Tag } from "./functions";
 
 const projects = [
   {
@@ -80,27 +80,26 @@ const navLinks = [
 export default function Home() {
   return (
     <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-10 border-b-2 border-border bg-background/90 backdrop-blur-xl">
+      <header className="sticky top-0 z-10 border-b-3 border-foreground bg-background">
         <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
           <ScrollLink
             to="about"
             smooth
             duration={400}
-            offset={-88}
-            className="flex cursor-pointer items-center gap-2 font-display text-xs tracking-wide text-foreground"
+            offset={-72}
+            className="brutal-border flex h-9 w-9 cursor-pointer items-center justify-center bg-foreground font-display text-[11px] text-background"
           >
-            <Invader className="h-4 w-5 text-accent" />
-            Greg Mall
+            GM
           </ScrollLink>
-          <ul className="flex gap-6 font-pixel text-base uppercase tracking-widest text-muted">
+          <ul className="flex gap-6 text-xs font-bold uppercase tracking-widest text-foreground">
             {navLinks.map((link) => (
               <li key={link.to}>
                 <ScrollLink
                   to={link.to}
                   smooth
                   duration={400}
-                  offset={-88}
-                  className="cursor-pointer transition-colors hover:text-accent"
+                  offset={-72}
+                  className="cursor-pointer border-b-2 border-transparent pb-0.5 transition-colors hover:border-accent hover:text-accent"
                 >
                   {link.label}
                 </ScrollLink>
@@ -112,35 +111,31 @@ export default function Home() {
 
       <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-28 px-6 py-24">
         <Element name="about">
-          <section className="relative flex flex-col items-start gap-6">
-            <Invader className="pointer-events-none absolute -right-2 -top-10 hidden h-24 w-32 text-border sm:block" />
-
-            <span className="pixel-frame inline-flex items-center gap-2 border-2 border-border bg-card px-4 py-1.5 font-pixel text-base uppercase tracking-widest text-muted">
-              <span className="cursor-blink h-3 w-2 bg-accent" />
+          <section className="flex flex-col items-start gap-6">
+            <span className="brutal-border inline-flex items-center gap-2 bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-muted">
+              <span className="h-2.5 w-2.5 bg-accent" />
               Open to new opportunities
             </span>
 
-            <h1 className="font-display text-3xl leading-relaxed text-transparent sm:text-5xl">
-              <span className="bg-linear-to-r from-accent to-accent-2 bg-clip-text drop-shadow-[0_0_20px_rgba(0,240,255,0.35)]">
-                Greg Mall
-              </span>
+            <h1 className="font-display text-4xl leading-tight tracking-tight text-foreground sm:text-6xl">
+              Greg Mall
             </h1>
-            <p className="flex items-center gap-3 font-pixel text-xl uppercase tracking-[0.3em] text-accent-2">
-              <span className="h-px w-8 bg-accent-2/60" />
+            <p className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.3em] text-accent">
+              <span className="h-px w-8 bg-accent/60" />
               Software Engineer
-              <span className="h-px w-8 bg-accent-2/60" />
+              <span className="h-px w-8 bg-accent/60" />
             </p>
             <p className="max-w-xl text-lg leading-8 text-muted">
               I build things for the web. A life long musician and artist. I
               love to make things.
             </p>
-            <div className="flex gap-6 pt-4 font-display text-xs">
+            <div className="flex gap-6 pt-4 text-xs font-bold uppercase tracking-widest">
               <ScrollLink
                 to="projects"
                 smooth
                 duration={400}
-                offset={-88}
-                className="pixel-frame pixel-shadow pixel-press cursor-pointer border-2 border-accent bg-accent px-6 py-3 text-background"
+                offset={-72}
+                className="brutal-border brutal-shadow brutal-press cursor-pointer bg-foreground px-6 py-3 text-background"
               >
                 View Projects
               </ScrollLink>
@@ -148,8 +143,8 @@ export default function Home() {
                 to="contact"
                 smooth
                 duration={400}
-                offset={-88}
-                className="pixel-frame pixel-shadow pixel-press cursor-pointer border-2 border-accent bg-card px-6 py-3 text-foreground"
+                offset={-72}
+                className="brutal-border brutal-shadow brutal-press cursor-pointer bg-card px-6 py-3 text-foreground"
               >
                 Get in touch
               </ScrollLink>
@@ -159,8 +154,8 @@ export default function Home() {
 
         <Element name="projects">
           <section className="flex flex-col gap-10">
-            <SectionHeading>Projects</SectionHeading>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <SectionHeading index="01">Projects</SectionHeading>
+            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {projects.map((project, i) => (
                 <a
                   key={project.name}
@@ -168,23 +163,20 @@ export default function Home() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <Panel className="pixel-press flex h-full flex-col gap-3 p-6">
-                    <span className="font-pixel text-lg text-accent-2">
-                      Level {String(i + 1).padStart(2, "0")}
+                  <Panel className="brutal-press flex h-full flex-col gap-3 p-6">
+                    <span className="font-display text-lg text-accent">
+                      N&deg;{String(i + 1).padStart(2, "0")}
                     </span>
-                    <h3 className="font-display text-sm leading-relaxed text-foreground">
+                    <h3 className="text-base font-bold leading-relaxed text-foreground">
                       {project.name}
                     </h3>
                     <p className="text-sm leading-6 text-muted">
                       {project.description}
                     </p>
-                    <ul className="mt-auto flex flex-wrap gap-2 pt-2 font-pixel text-base">
+                    <ul className="mt-auto flex flex-wrap gap-2 pt-2">
                       {project.tech.map((tech) => (
-                        <li
-                          key={tech}
-                          className="border border-border px-2 py-0.5 text-accent"
-                        >
-                          {tech}
+                        <li key={tech}>
+                          <Tag>{tech}</Tag>
                         </li>
                       ))}
                     </ul>
@@ -197,21 +189,17 @@ export default function Home() {
 
         <Element name="skills">
           <section className="flex flex-col gap-10">
-            <SectionHeading>Skills</SectionHeading>
-            <div className="grid gap-6 sm:grid-cols-2">
+            <SectionHeading index="02">Skills</SectionHeading>
+            <div className="grid gap-8 sm:grid-cols-2">
               {skills.map((group) => (
                 <Panel key={group.category} className="flex flex-col gap-3 p-6">
-                  <h3 className="flex items-center gap-2 font-pixel text-lg uppercase tracking-widest text-accent">
-                    <Invader className="h-3 w-4" />
+                  <h3 className="text-sm font-bold uppercase tracking-widest text-accent">
                     {group.category}
                   </h3>
-                  <ul className="flex flex-wrap gap-2 font-pixel text-base">
+                  <ul className="flex flex-wrap gap-2">
                     {group.items.map((item) => (
-                      <li
-                        key={item}
-                        className="border border-border px-2 py-0.5 text-muted"
-                      >
-                        {item}
+                      <li key={item}>
+                        <Tag>{item}</Tag>
                       </li>
                     ))}
                   </ul>
@@ -223,9 +211,10 @@ export default function Home() {
 
         <Element name="contact">
           <section className="flex flex-col items-center gap-6 text-center">
+            <SectionHeading index="03">Contact</SectionHeading>
             <Panel className="flex w-full flex-col items-center gap-6 p-10">
-              <h2 className="font-display text-xl tracking-wide sm:text-2xl">
-                Continue?
+              <h2 className="font-display text-lg tracking-tight sm:text-xl">
+                Let&apos;s talk
               </h2>
               <p className="max-w-xl leading-7 text-muted">
                 Open to new opportunities and interesting projects. Reach out
@@ -243,7 +232,7 @@ export default function Home() {
                       }
                       rel="noopener noreferrer"
                       aria-label={social.label}
-                      className="pixel-frame pixel-press flex h-11 w-11 items-center justify-center border-2 border-border text-foreground transition-colors hover:border-accent hover:text-accent"
+                      className="brutal-border brutal-press flex h-11 w-11 items-center justify-center bg-card text-foreground transition-colors hover:bg-foreground hover:text-background"
                     >
                       <svg
                         viewBox="0 0 24 24"
@@ -263,8 +252,11 @@ export default function Home() {
         </Element>
       </main>
 
-      <footer className="border-t-2 border-border px-6 py-8 text-center font-pixel text-lg uppercase tracking-widest text-muted">
-        Greg Mall, human. High score: 2026.
+      <footer className="flex flex-col items-center gap-1 border-t-3 border-foreground bg-foreground px-6 py-8 text-center text-xs font-bold uppercase tracking-widest text-background">
+        <span>Greg Mall &mdash; Software Engineer</span>
+        <span className="text-background/60">
+          <PrintDate />
+        </span>
       </footer>
     </div>
   );
