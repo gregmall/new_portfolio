@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fdf0d5;
-  --foreground: #14151a;
-  --muted: #4a453f;
-  --accent: #ff2b4e;
-  --accent-2: #2f6fed;
-  --card: #ffffff;
-  --border: #14151a;
+  --background: #0d3b66;
+  --foreground: #eaf4ff;
+  --muted: #8fb4d9;
+  --accent: #4fd1ff;
+  --accent-2: #ffb703;
+  --card: #0f4470;
+  --border: #4a7fab;
 }
 
 @theme inline {
@@ -18,14 +18,14 @@
   --color-accent-2: var(--accent-2);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-bangers);
+  --font-sans: var(--font-plex-mono), ui-monospace, monospace;
+  --font-mono: var(--font-plex-mono), ui-monospace, monospace;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-plex-mono), ui-monospace, monospace;
   position: relative;
 }
 
@@ -35,73 +35,15 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background-image: radial-gradient(
-    var(--foreground) 1.5px,
-    transparent 1.5px
-  );
-  background-size: 20px 20px;
-  opacity: 0.08;
-}
-
-.comic-border {
-  border: 4px solid var(--foreground);
-}
-
-.comic-shadow {
-  box-shadow: 7px 7px 0 0 var(--accent);
-}
-
-.comic-shadow-blue {
-  box-shadow: 7px 7px 0 0 var(--accent-2);
-}
-
-.comic-press {
-  transition:
-    transform 120ms ease-out,
-    box-shadow 120ms ease-out;
-}
-
-.comic-press:hover {
-  transform: translate(3px, 3px);
-  box-shadow: 4px 4px 0 0 var(--accent);
-}
-
-.comic-press:active {
-  transform: translate(7px, 7px);
-  box-shadow: 0 0 0 0 var(--accent);
-}
-
-.comic-title {
-  text-shadow: 3px 3px 0 var(--accent);
-}
-
-.speech-bubble {
-  position: relative;
-  border: 4px solid var(--foreground);
-  border-radius: 999px;
-  background: var(--card);
-}
-
-.speech-bubble::before {
-  content: "";
-  position: absolute;
-  left: 2.75rem;
-  bottom: -1.15rem;
-  width: 0;
-  height: 0;
-  border: 0.85rem solid transparent;
-  border-top-color: var(--foreground);
-  border-bottom: 0;
-}
-
-.speech-bubble::after {
-  content: "";
-  position: absolute;
-  left: 3.05rem;
-  bottom: -0.7rem;
-  width: 0;
-  height: 0;
-  border: 0.6rem solid transparent;
-  border-top-color: var(--card);
-  border-bottom: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(234, 244, 255, 0.07) 0 1px,
+      transparent 1px 40px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(234, 244, 255, 0.07) 0 1px,
+      transparent 1px 40px
+    );
 }

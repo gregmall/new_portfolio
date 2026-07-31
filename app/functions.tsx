@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-export function StatUpdate() {
+export function RevisionStamp() {
   const [date, setDate] = useState<string | null>(null);
 
   useEffect(() => {
@@ -13,32 +13,39 @@ export function StatUpdate() {
     getDate();
   }, []);
 
-  return <span>Updated {date ?? "--.--.--"}</span>;
+  return <span>REV. {date ?? "----.--.--"}</span>;
 }
 
-export function SectionHeading({ children }: { children: React.ReactNode }) {
+export function FigureLabel({
+  index,
+  children,
+}: {
+  index: string;
+  children: React.ReactNode;
+}) {
   return (
-    <h2 className="comic-title font-display text-3xl tracking-wide text-foreground sm:text-4xl">
-      {children}
-    </h2>
+    <div className="flex items-center gap-3 text-xs uppercase tracking-[0.25em] text-accent">
+      <span>FIG.{index}</span>
+      <span className="h-px flex-1 bg-border" />
+      <span className="text-foreground">{children}</span>
+      <span className="h-px flex-1 bg-border" />
+    </div>
   );
 }
 
 export function Panel({
   children,
   className = "",
-  shadow = "red",
 }: {
   children: React.ReactNode;
   className?: string;
-  shadow?: "red" | "blue";
 }) {
   return (
-    <div
-      className={`comic-border ${
-        shadow === "blue" ? "comic-shadow-blue" : "comic-shadow"
-      } rounded-2xl bg-card ${className}`}
-    >
+    <div className={`relative border border-border bg-card ${className}`}>
+      <span className="pointer-events-none absolute -top-px -left-px h-3 w-3 border-t-2 border-l-2 border-accent" />
+      <span className="pointer-events-none absolute -top-px -right-px h-3 w-3 border-t-2 border-r-2 border-accent" />
+      <span className="pointer-events-none absolute -bottom-px -left-px h-3 w-3 border-b-2 border-l-2 border-accent" />
+      <span className="pointer-events-none absolute -bottom-px -right-px h-3 w-3 border-b-2 border-r-2 border-accent" />
       {children}
     </div>
   );
@@ -46,27 +53,8 @@ export function Panel({
 
 export function Tag({ children }: { children: React.ReactNode }) {
   return (
-    <span className="comic-border rounded-full bg-accent-2 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-white">
+    <span className="border border-border px-2 py-0.5 text-[10px] uppercase tracking-wide text-muted">
       {children}
     </span>
-  );
-}
-
-export function IconBadge({
-  color = "var(--accent)",
-  className = "",
-  children,
-}: {
-  color?: string;
-  className?: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div
-      className={`comic-border flex shrink-0 items-center justify-center rounded-full text-white ${className}`}
-      style={{ background: color }}
-    >
-      {children}
-    </div>
   );
 }
