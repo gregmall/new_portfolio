@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-export function LastUpdated() {
+export function IssueStamp() {
   const [date, setDate] = useState<string | null>(null);
 
   useEffect(() => {
@@ -13,69 +13,69 @@ export function LastUpdated() {
     getDate();
   }, []);
 
-  return <span>Updated {date ?? "--.--.--"}</span>;
+  return <span>No. {date ?? "----.--.--"}</span>;
 }
 
-export function SectionLabel({ children }: { children: React.ReactNode }) {
+export function Kicker({ children }: { children: React.ReactNode }) {
   return (
-    <h2 className="inline-flex items-center gap-2 self-start rounded-full bg-card px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-muted neu-inset">
-      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
+    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
       {children}
-    </h2>
+    </p>
   );
 }
 
-export function NeuCard({
-  children,
-  className = "",
-  as = "div",
+export function IndexRow({
+  index,
+  title,
+  meta,
+  description,
   href,
-  external = false,
 }: {
-  children: React.ReactNode;
-  className?: string;
-  as?: "div" | "a";
-  href?: string;
-  external?: boolean;
-}) {
-  const classes = `neu-raised neu-press flex flex-col rounded-[2rem] bg-card ${className}`;
-
-  if (as === "a" && href) {
-    return (
-      <a
-        href={href}
-        target={external ? "_blank" : undefined}
-        rel={external ? "noopener noreferrer" : undefined}
-        className={classes}
-      >
-        {children}
-      </a>
-    );
-  }
-
-  return <div className={classes}>{children}</div>;
-}
-
-export function NeuIconTile({
-  className = "",
-  children,
-}: {
-  className?: string;
-  children: React.ReactNode;
+  index: string;
+  title: string;
+  meta: string;
+  description: string;
+  href: string;
 }) {
   return (
-    <div
-      className={`neu-raised-sm flex shrink-0 items-center justify-center rounded-2xl bg-card text-accent ${className}`}
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group flex flex-col gap-2 py-6"
     >
-      {children}
-    </div>
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline">
+        <div className="flex items-baseline gap-3 sm:contents">
+          <span className="font-serif text-sm text-accent-2">{index}</span>
+          <span className="font-serif text-lg text-foreground transition-colors group-hover:text-accent sm:mx-3">
+            {title}
+          </span>
+        </div>
+        <span className="leader hidden sm:block" />
+        <span className="pl-8 text-[11px] uppercase tracking-widest text-muted sm:whitespace-nowrap sm:pl-0">
+          {meta}
+        </span>
+      </div>
+      <p className="max-w-xl text-sm leading-6 text-muted">{description}</p>
+    </a>
   );
 }
 
-export function Chip({ children }: { children: React.ReactNode }) {
+export function SkillLine({
+  category,
+  items,
+}: {
+  category: string;
+  items: string[];
+}) {
   return (
-    <span className="neu-inset rounded-full bg-card px-3 py-1 text-[11px] font-medium text-muted">
-      {children}
-    </span>
+    <div className="flex flex-col gap-1 py-5">
+      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-muted">
+        {category}
+      </p>
+      <p className="font-serif text-lg italic text-foreground">
+        {items.join(", ")}
+      </p>
+    </div>
   );
 }
