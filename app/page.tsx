@@ -1,7 +1,7 @@
 "use client";
 
 import { Link as ScrollLink, Element } from "react-scroll";
-import { Panel, PrintDate, SectionHeading, Tag } from "./functions";
+import { Chip, LastUpdated, NeuCard, NeuIconTile, SectionLabel } from "./functions";
 
 const projects = [
   {
@@ -77,21 +77,27 @@ const navLinks = [
   { label: "Contact", to: "contact" },
 ];
 
+const projectIcon = (
+  <svg viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
+    <path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4.6c.4 0 .8.2 1.1.5L11.6 7H19.5A1.5 1.5 0 0 1 21 8.5v9A1.5 1.5 0 0 1 19.5 19h-15A1.5 1.5 0 0 1 3 17.5v-11Z" />
+  </svg>
+);
+
 export default function Home() {
   return (
-    <div className="flex flex-1 flex-col">
-      <header className="sticky top-0 z-10 border-b-3 border-foreground bg-background">
+    <div className="flex flex-1 flex-col bg-background">
+      <header className="sticky top-0 z-10 bg-background shadow-[0_1px_0_rgba(46,49,56,0.06)]">
         <nav className="mx-auto flex w-full max-w-4xl flex-wrap items-center justify-between gap-x-6 gap-y-2 px-6 py-4">
           <ScrollLink
             to="about"
             smooth
             duration={400}
             offset={-72}
-            className="brutal-border flex h-9 w-9 cursor-pointer items-center justify-center bg-foreground font-display text-[11px] text-background"
+            className="neu-raised-sm flex h-9 w-9 cursor-pointer items-center justify-center rounded-full bg-card text-xs font-bold text-accent"
           >
             GM
           </ScrollLink>
-          <ul className="flex gap-6 text-xs font-bold uppercase tracking-widest text-foreground">
+          <ul className="flex gap-6 text-sm font-medium text-muted">
             {navLinks.map((link) => (
               <li key={link.to}>
                 <ScrollLink
@@ -99,165 +105,158 @@ export default function Home() {
                   smooth
                   duration={400}
                   offset={-72}
-                  className="cursor-pointer border-b-2 border-transparent pb-0.5 transition-colors hover:border-accent hover:text-accent"
+                  className="cursor-pointer transition-colors hover:text-foreground"
                 >
                   {link.label}
                 </ScrollLink>
               </li>
             ))}
           </ul>
+          <ScrollLink
+            to="contact"
+            smooth
+            duration={400}
+            offset={-72}
+            className="neu-raised-sm neu-press cursor-pointer rounded-full bg-card px-4 py-1.5 text-xs font-semibold text-foreground"
+          >
+            Say hello
+          </ScrollLink>
         </nav>
       </header>
 
-      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-28 px-6 py-24">
+      <main className="mx-auto flex w-full max-w-4xl flex-1 flex-col gap-16 px-6 py-16">
         <Element name="about">
-          <section className="flex flex-col items-start gap-6">
-            <span className="brutal-border inline-flex items-center gap-2 bg-card px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-muted">
-              <span className="h-2.5 w-2.5 bg-accent" />
-              Open to new opportunities
-            </span>
-
-            <h1 className="font-display text-4xl leading-tight tracking-tight text-foreground sm:text-6xl">
+          <NeuCard className="items-center gap-6 px-6 py-16 text-center">
+            <SectionLabel>Open to new opportunities</SectionLabel>
+            <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl">
               Greg Mall
             </h1>
-            <p className="flex items-center gap-3 text-sm font-bold uppercase tracking-[0.3em] text-accent">
-              <span className="h-px w-8 bg-accent/60" />
+            <p className="text-lg font-medium text-accent">
               Software Engineer
-              <span className="h-px w-8 bg-accent/60" />
             </p>
-            <p className="max-w-xl text-lg leading-8 text-muted">
+            <p className="max-w-xl leading-7 text-muted">
               I build things for the web. A life long musician and artist. I
               love to make things.
             </p>
-            <div className="flex gap-6 pt-4 text-xs font-bold uppercase tracking-widest">
+            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
               <ScrollLink
                 to="projects"
                 smooth
                 duration={400}
                 offset={-72}
-                className="brutal-border brutal-shadow brutal-press cursor-pointer bg-foreground px-6 py-3 text-background"
+                className="neu-raised-accent neu-press cursor-pointer rounded-full bg-accent px-6 py-3 text-sm font-semibold text-white"
               >
-                View Projects
+                View my work
               </ScrollLink>
               <ScrollLink
                 to="contact"
                 smooth
                 duration={400}
                 offset={-72}
-                className="brutal-border brutal-shadow brutal-press cursor-pointer bg-card px-6 py-3 text-foreground"
+                className="neu-raised-sm neu-press cursor-pointer rounded-full bg-card px-6 py-3 text-sm font-semibold text-foreground"
               >
                 Get in touch
               </ScrollLink>
             </div>
-          </section>
+          </NeuCard>
         </Element>
 
         <Element name="projects">
-          <section className="flex flex-col gap-10">
-            <SectionHeading index="01">Projects</SectionHeading>
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              {projects.map((project, i) => (
-                <a
+          <section className="flex flex-col gap-6">
+            <SectionLabel>Projects</SectionLabel>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {projects.map((project) => (
+                <NeuCard
                   key={project.name}
+                  as="a"
                   href={project.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  external
+                  className="gap-4 p-6"
                 >
-                  <Panel className="brutal-press flex h-full flex-col gap-3 p-6">
-                    <span className="font-display text-lg text-accent">
-                      N&deg;{String(i + 1).padStart(2, "0")}
-                    </span>
-                    <h3 className="text-base font-bold leading-relaxed text-foreground">
+                  <NeuIconTile className="h-11 w-11">
+                    {projectIcon}
+                  </NeuIconTile>
+                  <div>
+                    <h3 className="text-base font-semibold text-foreground">
                       {project.name}
                     </h3>
-                    <p className="text-sm leading-6 text-muted">
+                    <p className="mt-1.5 text-sm leading-6 text-muted">
                       {project.description}
                     </p>
-                    <ul className="mt-auto flex flex-wrap gap-2 pt-2">
-                      {project.tech.map((tech) => (
-                        <li key={tech}>
-                          <Tag>{tech}</Tag>
-                        </li>
-                      ))}
-                    </ul>
-                  </Panel>
-                </a>
+                  </div>
+                  <div className="mt-auto flex flex-wrap gap-2 pt-2">
+                    {project.tech.map((tech) => (
+                      <Chip key={tech}>{tech}</Chip>
+                    ))}
+                  </div>
+                </NeuCard>
               ))}
             </div>
           </section>
         </Element>
 
         <Element name="skills">
-          <section className="flex flex-col gap-10">
-            <SectionHeading index="02">Skills</SectionHeading>
-            <div className="grid gap-8 sm:grid-cols-2">
+          <section className="flex flex-col gap-6">
+            <SectionLabel>Skills</SectionLabel>
+            <div className="grid gap-6 sm:grid-cols-2">
               {skills.map((group) => (
-                <Panel key={group.category} className="flex flex-col gap-3 p-6">
-                  <h3 className="text-sm font-bold uppercase tracking-widest text-accent">
+                <NeuCard key={group.category} className="gap-3 p-6">
+                  <h3 className="text-sm font-semibold text-foreground">
                     {group.category}
                   </h3>
-                  <ul className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-2">
                     {group.items.map((item) => (
-                      <li key={item}>
-                        <Tag>{item}</Tag>
-                      </li>
+                      <Chip key={item}>{item}</Chip>
                     ))}
-                  </ul>
-                </Panel>
+                  </div>
+                </NeuCard>
               ))}
             </div>
           </section>
         </Element>
 
         <Element name="contact">
-          <section className="flex flex-col items-center gap-6 text-center">
-            <SectionHeading index="03">Contact</SectionHeading>
-            <Panel className="flex w-full flex-col items-center gap-6 p-10">
-              <h2 className="font-display text-lg tracking-tight sm:text-xl">
-                Let&apos;s talk
-              </h2>
-              <p className="max-w-xl leading-7 text-muted">
+          <section className="flex flex-col gap-6">
+            <SectionLabel>Contact</SectionLabel>
+            <NeuCard className="items-center gap-8 px-6 py-14 text-center">
+              <p className="max-w-sm leading-6 text-muted">
                 Open to new opportunities and interesting projects. Reach out
                 through any of the links below.
               </p>
-              <ul className="flex gap-4">
+              <div className="flex gap-6">
                 {socials.map((social) => (
-                  <li key={social.label}>
-                    <a
-                      href={social.href}
-                      target={
-                        social.href.startsWith("mailto:")
-                          ? undefined
-                          : "_blank"
-                      }
-                      rel="noopener noreferrer"
-                      aria-label={social.label}
-                      className="brutal-border brutal-press flex h-11 w-11 items-center justify-center bg-card text-foreground transition-colors hover:bg-foreground hover:text-background"
-                    >
+                  <a
+                    key={social.label}
+                    href={social.href}
+                    target={
+                      social.href.startsWith("mailto:") ? undefined : "_blank"
+                    }
+                    rel="noopener noreferrer"
+                    className="flex flex-col items-center gap-2"
+                  >
+                    <NeuIconTile className="neu-press h-14 w-14 rounded-full">
                       <svg
                         viewBox="0 0 24 24"
                         fill="none"
                         stroke="currentColor"
                         strokeWidth="1.5"
-                        className="h-5 w-5"
+                        className="h-6 w-6"
                       >
                         {social.icon}
                       </svg>
-                    </a>
-                  </li>
+                    </NeuIconTile>
+                    <span className="text-xs text-muted">{social.label}</span>
+                  </a>
                 ))}
-              </ul>
-            </Panel>
+              </div>
+            </NeuCard>
           </section>
         </Element>
-      </main>
 
-      <footer className="flex flex-col items-center gap-1 border-t-3 border-foreground bg-foreground px-6 py-8 text-center text-xs font-bold uppercase tracking-widest text-background">
-        <span>Greg Mall &mdash; Software Engineer</span>
-        <span className="text-background/60">
-          <PrintDate />
-        </span>
-      </footer>
+        <footer className="py-6 text-center text-xs text-muted">
+          Greg Mall. Software Engineer. <LastUpdated />
+        </footer>
+      </main>
     </div>
   );
 }

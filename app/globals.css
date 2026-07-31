@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #f4f0e6;
-  --foreground: #121212;
-  --muted: #5c584f;
-  --accent: #ff3d1a;
-  --accent-2: #ffcc00;
-  --card: #fffdf8;
-  --border: #121212;
+  --background: #e6e7ee;
+  --foreground: #2e3138;
+  --muted: #868da3;
+  --accent: #5b6eea;
+  --accent-2: #ff8a65;
+  --card: #e6e7ee;
+  --border: rgba(46, 49, 56, 0.06);
 }
 
 @theme inline {
@@ -18,50 +18,52 @@
   --color-accent-2: var(--accent-2);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-archivo-black);
+  --font-sans: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, sans-serif;
-  position: relative;
+  font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  pointer-events: none;
-  background-image: radial-gradient(
-    color-mix(in srgb, var(--foreground) 15%, transparent) 1px,
-    transparent 1px
-  );
-  background-size: 14px 14px;
+.neu-raised {
+  box-shadow:
+    8px 8px 16px rgba(163, 177, 198, 0.55),
+    -8px -8px 16px rgba(255, 255, 255, 0.85);
 }
 
-.brutal-border {
-  border: 3px solid var(--foreground);
+.neu-raised-sm {
+  box-shadow:
+    4px 4px 8px rgba(163, 177, 198, 0.5),
+    -4px -4px 8px rgba(255, 255, 255, 0.8);
 }
 
-.brutal-shadow {
-  box-shadow: 7px 7px 0 0 var(--foreground);
+.neu-inset {
+  box-shadow:
+    inset 4px 4px 8px rgba(163, 177, 198, 0.5),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.8);
 }
 
-.brutal-press {
+.neu-raised-accent {
+  box-shadow:
+    8px 8px 16px rgba(91, 110, 234, 0.35),
+    -8px -8px 16px rgba(255, 255, 255, 0.7);
+}
+
+.neu-press {
   transition:
-    transform 120ms ease-out,
-    box-shadow 120ms ease-out;
+    box-shadow 200ms ease,
+    transform 200ms ease;
 }
 
-.brutal-press:hover {
-  transform: translate(3px, 3px);
-  box-shadow: 4px 4px 0 0 var(--foreground);
+.neu-press:hover {
+  transform: translateY(-2px);
 }
 
-.brutal-press:active {
-  transform: translate(7px, 7px);
-  box-shadow: 0 0 0 0 var(--foreground);
+.neu-press:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 4px 4px 8px rgba(163, 177, 198, 0.5),
+    inset -4px -4px 8px rgba(255, 255, 255, 0.8);
 }
