@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #faf6ef;
-  --foreground: #221d17;
-  --muted: #7a7266;
-  --accent: #6b2737;
-  --accent-2: #b08d57;
-  --card: #faf6ef;
-  --border: #ddd4c4;
+  --background: #fdf0d5;
+  --foreground: #14151a;
+  --muted: #4a453f;
+  --accent: #ff2b4e;
+  --accent-2: #2f6fed;
+  --card: #ffffff;
+  --border: #14151a;
 }
 
 @theme inline {
@@ -18,30 +18,90 @@
   --color-accent-2: var(--accent-2);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-fraunces), Georgia, serif;
+  --font-sans: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-bangers);
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-work-sans), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-nunito), ui-sans-serif, system-ui, sans-serif;
+  position: relative;
 }
 
-.drop-cap::first-letter {
-  font-family: var(--font-fraunces), Georgia, serif;
-  float: left;
-  font-size: 4.25rem;
-  line-height: 0.8;
-  padding-right: 0.6rem;
-  padding-top: 0.35rem;
-  font-weight: 600;
-  color: var(--accent);
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(
+    var(--foreground) 1.5px,
+    transparent 1.5px
+  );
+  background-size: 20px 20px;
+  opacity: 0.08;
 }
 
-.leader {
-  flex: 1;
-  margin: 0 0.75rem;
-  transform: translateY(-4px);
-  border-bottom: 1px dotted var(--border);
+.comic-border {
+  border: 4px solid var(--foreground);
+}
+
+.comic-shadow {
+  box-shadow: 7px 7px 0 0 var(--accent);
+}
+
+.comic-shadow-blue {
+  box-shadow: 7px 7px 0 0 var(--accent-2);
+}
+
+.comic-press {
+  transition:
+    transform 120ms ease-out,
+    box-shadow 120ms ease-out;
+}
+
+.comic-press:hover {
+  transform: translate(3px, 3px);
+  box-shadow: 4px 4px 0 0 var(--accent);
+}
+
+.comic-press:active {
+  transform: translate(7px, 7px);
+  box-shadow: 0 0 0 0 var(--accent);
+}
+
+.comic-title {
+  text-shadow: 3px 3px 0 var(--accent);
+}
+
+.speech-bubble {
+  position: relative;
+  border: 4px solid var(--foreground);
+  border-radius: 999px;
+  background: var(--card);
+}
+
+.speech-bubble::before {
+  content: "";
+  position: absolute;
+  left: 2.75rem;
+  bottom: -1.15rem;
+  width: 0;
+  height: 0;
+  border: 0.85rem solid transparent;
+  border-top-color: var(--foreground);
+  border-bottom: 0;
+}
+
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  left: 3.05rem;
+  bottom: -0.7rem;
+  width: 0;
+  height: 0;
+  border: 0.6rem solid transparent;
+  border-top-color: var(--card);
+  border-bottom: 0;
 }

@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 
-export function IssueStamp() {
+export function StatUpdate() {
   const [date, setDate] = useState<string | null>(null);
 
   useEffect(() => {
@@ -13,69 +13,60 @@ export function IssueStamp() {
     getDate();
   }, []);
 
-  return <span>No. {date ?? "----.--.--"}</span>;
+  return <span>Updated {date ?? "--.--.--"}</span>;
 }
 
-export function Kicker({ children }: { children: React.ReactNode }) {
+export function SectionHeading({ children }: { children: React.ReactNode }) {
   return (
-    <p className="text-xs font-semibold uppercase tracking-[0.3em] text-accent">
+    <h2 className="comic-title font-display text-3xl tracking-wide text-foreground sm:text-4xl">
       {children}
-    </p>
+    </h2>
   );
 }
 
-export function IndexRow({
-  index,
-  title,
-  meta,
-  description,
-  href,
+export function Panel({
+  children,
+  className = "",
+  shadow = "red",
 }: {
-  index: string;
-  title: string;
-  meta: string;
-  description: string;
-  href: string;
+  children: React.ReactNode;
+  className?: string;
+  shadow?: "red" | "blue";
 }) {
   return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="group flex flex-col gap-2 py-6"
+    <div
+      className={`comic-border ${
+        shadow === "blue" ? "comic-shadow-blue" : "comic-shadow"
+      } rounded-2xl bg-card ${className}`}
     >
-      <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline">
-        <div className="flex items-baseline gap-3 sm:contents">
-          <span className="font-serif text-sm text-accent-2">{index}</span>
-          <span className="font-serif text-lg text-foreground transition-colors group-hover:text-accent sm:mx-3">
-            {title}
-          </span>
-        </div>
-        <span className="leader hidden sm:block" />
-        <span className="pl-8 text-[11px] uppercase tracking-widest text-muted sm:whitespace-nowrap sm:pl-0">
-          {meta}
-        </span>
-      </div>
-      <p className="max-w-xl text-sm leading-6 text-muted">{description}</p>
-    </a>
+      {children}
+    </div>
   );
 }
 
-export function SkillLine({
-  category,
-  items,
+export function Tag({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="comic-border rounded-full bg-accent-2 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wide text-white">
+      {children}
+    </span>
+  );
+}
+
+export function IconBadge({
+  color = "var(--accent)",
+  className = "",
+  children,
 }: {
-  category: string;
-  items: string[];
+  color?: string;
+  className?: string;
+  children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col gap-1 py-5">
-      <p className="text-xs font-semibold uppercase tracking-[0.3em] text-muted">
-        {category}
-      </p>
-      <p className="font-serif text-lg italic text-foreground">
-        {items.join(", ")}
-      </p>
+    <div
+      className={`comic-border flex shrink-0 items-center justify-center rounded-full text-white ${className}`}
+      style={{ background: color }}
+    >
+      {children}
     </div>
   );
 }
