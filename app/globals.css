@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
 :root {
-  --background: #1a1714;
-  --foreground: #f0ead9;
-  --muted: #8a8172;
-  --accent: #ff3b30;
-  --accent-2: #e8a33d;
-  --card: #242019;
-  --border: #3d372c;
+  --background: #f4f1e8;
+  --foreground: #1a1a1a;
+  --muted: #5b5750;
+  --accent: #b3121b;
+  --accent-2: #1a1a1a;
+  --card: #f4f1e8;
+  --border: #1a1a1a;
 }
 
 @theme inline {
@@ -18,46 +18,35 @@
   --color-accent-2: var(--accent-2);
   --color-card: var(--card);
   --color-border: var(--border);
-  --font-sans: ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-oswald);
+  --font-sans: var(--font-pt-serif), Georgia, serif;
+  --font-display: var(--font-playfair-display), Georgia, serif;
 }
 
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-pt-serif), Georgia, serif;
+  position: relative;
 }
 
-.rack-panel {
-  background-image: repeating-linear-gradient(
-    115deg,
-    rgba(255, 255, 255, 0.025) 0px,
-    rgba(255, 255, 255, 0.025) 1px,
-    transparent 1px,
-    transparent 3px
-  );
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image: radial-gradient(var(--foreground) 1px, transparent 1px);
+  background-size: 5px 5px;
+  opacity: 0.035;
 }
 
-.console-press {
-  transition:
-    transform 100ms ease,
-    box-shadow 100ms ease;
-}
-
-.console-press:active {
-  transform: translateY(2px);
-}
-
-@keyframes meter-pulse {
-  0%,
-  100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.55;
-  }
-}
-
-.meter-live {
-  animation: meter-pulse 1.6s ease-in-out infinite;
+.drop-cap::first-letter {
+  float: left;
+  font-family: var(--font-playfair-display), Georgia, serif;
+  font-size: 3.75rem;
+  line-height: 0.8;
+  padding-right: 0.5rem;
+  padding-top: 0.3rem;
+  font-weight: 900;
+  color: var(--foreground);
 }

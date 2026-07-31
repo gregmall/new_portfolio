@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
-import { Oswald } from "next/font/google";
+import { Playfair_Display, PT_Serif } from "next/font/google";
 import "./globals.css";
 
-const oswald = Oswald({
-  variable: "--font-oswald",
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["500", "700", "900"],
+  style: ["normal", "italic"],
+});
+
+const ptSerif = PT_Serif({
+  variable: "--font-pt-serif",
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -21,7 +29,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${oswald.variable} h-full antialiased scroll-smooth`}
+      className={`${playfairDisplay.variable} ${ptSerif.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
