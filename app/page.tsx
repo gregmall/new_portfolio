@@ -201,7 +201,7 @@ export default function Home() {
                   href={project.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex flex-col gap-3 rounded-2xl bg-white/40 p-5 transition-colors hover:bg-white/60"
+                  className="flex flex-col gap-3 rounded-2xl bg-white/5 p-5 transition-colors hover:bg-white/10"
                 >
                   <div
                     className="flex h-11 w-11 items-center justify-center rounded-xl text-white shadow-md"
@@ -219,7 +219,7 @@ export default function Home() {
                     {project.tech.map((tech) => (
                       <span
                         key={tech}
-                        className="rounded-full bg-white/60 px-2 py-0.5 text-[10px] font-medium text-muted"
+                        className="rounded-full bg-white/10 px-2 py-0.5 text-[10px] font-medium text-muted"
                       >
                         {tech}
                       </span>
@@ -237,7 +237,7 @@ export default function Home() {
               {skills.map((group) => (
                 <div
                   key={group.category}
-                  className="flex items-center gap-3 rounded-2xl bg-white/40 p-4"
+                  className="flex items-center gap-3 rounded-2xl bg-white/5 p-4"
                 >
                   <div
                     className="flex h-9 w-9 shrink-0 items-center justify-center rounded-[10px] text-xs font-bold text-white shadow-md"

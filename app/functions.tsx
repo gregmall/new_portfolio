@@ -81,7 +81,7 @@ export function Window({
 }) {
   return (
     <div className={`glass overflow-hidden rounded-[22px] ${className}`}>
-      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-white/40 px-5 py-3">
+      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-white/10 px-5 py-3">
         <TrafficLights />
         <span className="text-center text-xs font-medium text-muted">
           {title}
