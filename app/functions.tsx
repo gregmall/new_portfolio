@@ -39,38 +39,60 @@ export function DateLabel() {
   return <span>{date ?? "--- -- --"}</span>;
 }
 
-export function MenuBar() {
+const navItems = [
+  { to: "about", label: "about" },
+  { to: "projects", label: "projects" },
+  { to: "skills", label: "skills" },
+  { to: "contact", label: "contact" },
+];
+
+export function PromptBar() {
   return (
-    <div className="glass fixed inset-x-0 top-0 z-40 flex h-8 items-center justify-between px-4 text-[13px] font-medium text-foreground">
-      <div className="flex items-center gap-4">
-        <span className="font-semibold">Greg Mall</span>
-        <span className="hidden cursor-default text-muted sm:inline">File</span>
-        <span className="hidden cursor-default text-muted sm:inline">Edit</span>
-        <span className="hidden cursor-default text-muted sm:inline">View</span>
-        <span className="hidden cursor-default text-muted sm:inline">Window</span>
-        <span className="hidden cursor-default text-muted sm:inline">Help</span>
+    <div className="terminal fixed inset-x-0 top-0 z-40 flex h-11 items-center justify-between border-b border-white/10 bg-background/90 px-4 text-[13px] backdrop-blur">
+      <div className="flex items-center gap-1.5">
+        <span className="text-accent">guest@greg-mall</span>
+        <span className="text-muted">:~$</span>
+        <span className="ml-0.5 h-4 w-[7px] cursor-blink bg-accent" />
+      </div>
+      <nav className="hidden items-center gap-5 sm:flex">
+        {navItems.map((item) => (
+          <ScrollLink
+            key={item.to}
+            to={item.to}
+            smooth
+            duration={400}
+            offset={-56}
+            spy
+            activeClass="text-accent"
+            className="cursor-pointer text-muted transition-colors hover:text-accent"
+          >
+            --{item.label}
+          </ScrollLink>
+        ))}
+      </nav>
+    </div>
+  );
+}
+
+export function StatusBar() {
+  return (
+    <div className="fixed inset-x-0 bottom-0 z-40 flex h-7 items-center justify-between border-t border-white/10 bg-background/95 px-3 text-[11px]">
+      <div className="flex items-center gap-2">
+        <span className="bg-accent px-2 py-0.5 font-semibold text-background">
+          NORMAL
+        </span>
+        <span className="hidden text-muted sm:inline">portfolio.tsx</span>
       </div>
       <div className="flex items-center gap-3 text-muted">
-        <span className="hidden sm:inline">
-          <DateLabel />
-        </span>
+        <span className="hidden sm:inline">UTF-8</span>
+        <DateLabel />
         <Clock />
       </div>
     </div>
   );
 }
 
-export function TrafficLights() {
-  return (
-    <div className="flex items-center gap-2">
-      <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
-      <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
-      <span className="h-3 w-3 rounded-full bg-[#28c840]" />
-    </div>
-  );
-}
-
-export function Window({
+export function TerminalWindow({
   title,
   children,
   className = "",
@@ -80,20 +102,17 @@ export function Window({
   className?: string;
 }) {
   return (
-    <div className={`glass overflow-hidden rounded-[22px] ${className}`}>
-      <div className="grid grid-cols-[auto_1fr_auto] items-center gap-3 border-b border-white/10 px-5 py-3">
-        <TrafficLights />
-        <span className="text-center text-xs font-medium text-muted">
-          {title}
-        </span>
-        <span className="w-12" />
+    <div className={`terminal overflow-hidden rounded-lg ${className}`}>
+      <div className="flex items-center gap-2.5 border-b border-white/10 bg-white/[0.02] px-4 py-2.5">
+        <span className="h-2 w-2 rounded-full bg-white/15" />
+        <span className="text-xs text-muted">{title}</span>
       </div>
       <div className="p-6">{children}</div>
     </div>
   );
 }
 
-export function Pill({
+export function Tag({
   children,
   className = "",
 }: {
@@ -102,53 +121,9 @@ export function Pill({
 }) {
   return (
     <span
-      className={`glass inline-flex items-center rounded-full px-4 py-1.5 text-xs font-medium text-foreground ${className}`}
+      className={`rounded border border-accent/25 bg-accent/10 px-2 py-0.5 text-[11px] text-accent ${className}`}
     >
       {children}
     </span>
-  );
-}
-
-export function Dock({ children }: { children: React.ReactNode }) {
-  return (
-    <div className="fixed inset-x-0 bottom-4 z-40 flex justify-center px-4">
-      <div className="glass flex items-end gap-4 rounded-[26px] px-4 py-3">
-        {children}
-      </div>
-    </div>
-  );
-}
-
-export function DockIcon({
-  to,
-  label,
-  gradient,
-  children,
-}: {
-  to: string;
-  label: string;
-  gradient: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <ScrollLink
-      to={to}
-      smooth
-      duration={400}
-      offset={-40}
-      aria-label={label}
-      className="group relative flex cursor-pointer flex-col items-center gap-1.5"
-    >
-      <span className="pointer-events-none absolute -top-9 whitespace-nowrap rounded-md bg-foreground/90 px-2 py-1 text-[11px] text-background opacity-0 shadow-lg transition-opacity duration-150 group-hover:opacity-100">
-        {label}
-      </span>
-      <span
-        className="flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-lg transition-transform duration-200 ease-out group-hover:-translate-y-3 group-hover:scale-125"
-        style={{ background: gradient }}
-      >
-        {children}
-      </span>
-      <span className="h-1 w-1 rounded-full bg-foreground/40" />
-    </ScrollLink>
   );
 }
